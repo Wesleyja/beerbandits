@@ -10,9 +10,105 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2020_03_02_064956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "brands", force: :cascade do |t|
+    t.string "logo"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "drinks", force: :cascade do |t|
+    t.string "strength"
+    t.string "name"
+    t.string "category"
+    t.integer "volume"
+    t.float "abv"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "brand"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.bigint "store_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "price_cents", default: 0, null: false
+    t.index ["store_id"], name: "index_inventories_on_store_id"
+  end
+
+  create_table "inventory_products", force: :cascade do |t|
+    t.bigint "inventory_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_id"], name: "index_inventory_products_on_inventory_id"
+    t.index ["product_id"], name: "index_inventory_products_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.integer "size"
+    t.bigint "drink_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["drink_id"], name: "index_products_on_drink_id"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.boolean "favorited"
+    t.jsonb "source_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_searches_on_user_id"
+  end
+
+  create_table "specials", force: :cascade do |t|
+    t.bigint "store_id"
+    t.string "payment_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "price_cents", default: 0, null: false
+    t.index ["store_id"], name: "index_specials_on_store_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string "location"
+    t.bigint "user_id"
+    t.float "longitude"
+    t.float "latitude"
+    t.string "name"
+    t.bigint "brand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_stores_on_brand_id"
+    t.index ["user_id"], name: "index_stores_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "username"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  add_foreign_key "inventories", "stores"
+  add_foreign_key "inventory_products", "inventories"
+  add_foreign_key "inventory_products", "products"
+  add_foreign_key "products", "drinks"
+  add_foreign_key "searches", "users"
+  add_foreign_key "specials", "stores"
+  add_foreign_key "stores", "brands"
+  add_foreign_key "stores", "users"
 end
