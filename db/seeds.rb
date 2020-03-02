@@ -9,22 +9,22 @@ drinks_filepath = 'drinks.csv'
 
 puts "Making Users"
 10.times do
-  User.create(username: Faker::Internet.username,password: 'password')
-  puts "#{User.last.username}"
+  User.create(username: Faker::Internet.username,password: 'password', email: Faker::Internet.email)
+  puts "#{User.last.email}"
 end
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "Making Brands"
-Brand.new(name: "BWS" ,logo: )
-Brand.new(name: "Liqourland" ,logo: )
-Brand.new(name: "Dan Murphy's" ,logo: )
-Brand.new(name: "First Choice" ,logo: )
+Brand.create(name: "BWS" ,logo: "")
+Brand.create(name: "Liqourland" ,logo: "")
+Brand.create(name: "Dan Murphy's" ,logo: "")
+Brand.create(name: "First Choice" ,logo: "")
 
 10.times do
-  new_store = Store.new(latitude: rand(-37.84578..-37.77509) ,longitude: rand(144.97737..145.03860))
-  new_store.brand_id = Brand.find(name: brands.sample)
-  new_store.name = "#{Faker::Company.name}'s #{new_store.brand_id}"
+  new_store = Store.create(latitude: rand(-37.84578..-37.77509) ,longitude: rand(144.97737..145.03860), brand_id: Brand.find_by(name: brands.sample).id)
+  # new_store.brand_id = Brand.find_by(name: brands.sample).id
+  new_store.name = "#{Faker::Company.name}'s #{Brand.find_by(new_store.brand_id).name}"
 end
 
 
