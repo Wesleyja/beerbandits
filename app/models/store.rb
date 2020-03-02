@@ -1,4 +1,4 @@
 class Store < ApplicationRecord
-  belongs_to :user
-  belongs_to :brand
+  belongs_to :user, :brand
+  has_many :specials, :inventories
 end
