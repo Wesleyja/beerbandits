@@ -9,35 +9,39 @@ AllCops:
     - 'tmp/**/*'
     - 'test/**/*'
 
-ConditionalAssignment:
+Style/ConditionalAssignment:
   Enabled: false
-StringLiterals:
+Style/StringLiterals:
   Enabled: false
-RedundantReturn:
+Style/RedundantReturn:
   Enabled: false
-Documentation:
+Style/Documentation:
   Enabled: false
-WordArray:
+Style/WordArray:
   Enabled: false
-AbcSize:
+Metrics/AbcSize:
   Enabled: false
-MutableConstant:
+Style/MutableConstant:
   Enabled: false
-SignalException:
+Style/SignalException:
   Enabled: false
-Casecmp:
+Metrics/CyclomaticComplexity:
   Enabled: false
-CyclomaticComplexity:
+Style/MissingRespondToMissing:
   Enabled: false
-MissingRespondToMissing:
-  Enabled: false
-MethodMissingSuper:
+Style/MethodMissingSuper:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
-LineLength:
+Layout/LineLength:
   Max: 120
 Style/EmptyMethod:
   Enabled: false
 Bundler/OrderedGems:
+  Enabled: false
+Style/HashEachMethods: 
+  Enabled: false
+Style/HashTransformKeys:
+  Enabled: false
+Style/HashTransformValues:
   Enabled: false
