@@ -4,6 +4,20 @@ class PagesController < ApplicationController
   def home
   end
 
-  def preferences
+  def about
   end
+
+  def preferences
+    @drinks = Drink.all
+    @stores = Store.all
+    @products = Product.all
+  end
+
+  def results
+  end
+
+
+  private
+
+
 end
