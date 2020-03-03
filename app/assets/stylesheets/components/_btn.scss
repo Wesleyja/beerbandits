@@ -1,0 +1,36 @@
+.btn {
+	&.btn-primary {
+		border-radius: 8px;
+		background-color: transparent;
+		border: solid #5D45E0 2px;
+		color: #5D45E0;
+		&:hover {
+			background-color: #5D45E0;
+			color: white;
+		}
+	}
+	&.btn-secondary {
+		border-radius: 8px;
+		background-color: transparent;
+		border: solid #7f7f7f 2px;
+		color: #7f7f7f;
+		&:hover {
+			background-color: #7f7f7f;
+			color: white;
+		}
+	}
+	&.btn-light {
+		color: #5D45E0;
+		background-color: transparent;
+		font-size: 14px;
+		border: none;
+	}
+	&.btn-success {
+		color: #5D45E0;
+		background-color: transparent;
+		border: solid #5D45E0 2px;
+		font-size: 14px;
+		border-radius: 8px;
+		padding: 3px 9px;
+	}
+}

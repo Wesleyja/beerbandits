@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   get 'preferences', to: 'pages#preferences'
   get 'preferences/results', to: 'pages#results'
   get 'about', to: 'pages#about'
+  get 'style-guide', to: 'pages#style_guide'
 end
