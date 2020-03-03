@@ -11,8 +11,13 @@ class PagesController < ApplicationController
   end
 
   def results
-    @drinks = Drink.all
-    @stores = Store.all
-    @products = Product.all
+    @stores = Store.geocoded
+
+    @markers = @stores.map do |store|
+      {
+        lat: store.latitude,
+        lng: store.longitude
+      }
+    end
   end
 end
