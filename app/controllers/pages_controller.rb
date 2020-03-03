@@ -8,16 +8,11 @@ class PagesController < ApplicationController
   end
 
   def preferences
+  end
+
+  def results
     @drinks = Drink.all
     @stores = Store.all
     @products = Product.all
   end
-
-  def results
-  end
-
-
-  private
-
-
 end
