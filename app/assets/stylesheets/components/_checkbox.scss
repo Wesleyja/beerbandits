@@ -1,0 +1,34 @@
+.clickable-card {
+  padding: 40px;
+  width: 180px;
+  border: 1px solid #dedede;
+  color: #a0a0a0;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  i {
+  font-size: 24px;
+  margin-bottom: 10px;
+  }
+  &:hover i {
+  color: #F0C032;
+  }
+  &.clickable-card.active {
+  color: inherit;
+  border-color: inherit;
+  }
+  &.clickable-card.active i {
+  color: #F0C032;
+  }
+  .checkbox input[type="checkbox"] + label::after {
+    content: none;
+  }
+  input[type=checkbox].hidden{
+   display:none;
+  }
+  .checkbox-text {
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,40 @@
+.radio-container {
+	height: 88px;
+	width: 260px;
+	background-color: white;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	overflow: hidden;
+	input[type="radio"] {
+		display: none;
+	}
+	.radio-label1, .radio-label2 {
+		display: block;
+		height: 180px;
+		width: 130px;
+		background-size: 130px 180px;
+		background:linear-gradient(
+			to bottom,
+			white 0, white 90px,
+			#F0C032 90px, #F0C032 180px
+			);
+		position: absolute;
+		top: 0;
+		transition: 0.5s;
+	}
+	.radio-label2 {
+		right: 0;
+	}
+	span {
+		display: flex;
+		height: 90px;
+		width: 130px;
+		justify-content: center;
+		align-items: center;
+	}
+	input:checked + label {
+		background-position: 0 -90px;
+		color: white;
+	}
+}

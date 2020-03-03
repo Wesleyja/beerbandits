@@ -7,6 +7,9 @@ class PagesController < ApplicationController
   def about
   end
 
+  def style_guide
+  end
+
   def preferences
     @drinks = Drink.all
     @stores = Store.all
