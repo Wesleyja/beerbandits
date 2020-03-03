@@ -49,7 +49,7 @@ end
 
 # 24 pack beers
 csv.each do |row|
-  Drink.create(name: row['Name'], category: row['Category'],volume: row['Volume'],abv: row['ABV'],strength: row['Strength'])
+  Drink.create(name: row['Name'], category: row['Category'],volume: row['Volume'],abv: row['ABV'])
   Product.create(drink_id: Drink.last.id ,size: 24)
   recent_shops = []
   10.times do
