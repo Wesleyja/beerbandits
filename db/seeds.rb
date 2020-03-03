@@ -2,7 +2,22 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'faker'
 require 'csv'
-require 'byebug'
+# require 'byebug'
+puts "Destorying Users"
+User.destroy_all
+puts "Destorying Inventory Product"
+InventoryProduct.destroy_all
+puts "Destorying Product"
+Product.destroy_all
+puts "Destorying Inventory"
+Inventory.destroy_all
+puts "Destorying Drinks"
+Drink.destroy_all
+puts "Destorying Stores"
+Store.destroy_all
+puts "Destorying Brans"
+Brand.destroy_all
+
 # Examples:
 csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 brands = ["BWS", "Liqourland", "Dan Murphy's", "First Choice"]
@@ -38,17 +53,17 @@ csv.each do |row|
   Product.create(drink_id: Drink.last.id ,size: 24)
   recent_shops = []
   10.times do
-    Inventory.create(price_cents: rand(4000..6500) ,store_id: (Store.first.id..Store.last.id).grep_v(recent_shops).sample)
+    Inventory.create(price: rand(40.00..65.00) ,store_id: ((Store.first.id..Store.last.id).reject { |i| recent_shops.include?(i) }).sample )
     InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-    puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price_cents.to_f / 100).round(2)} at #{Store.find( Inventory.last.store_id).name}"
+    puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
     recent_shops << Inventory.last.store_id
   end
   Product.create(drink_id: Drink.last.id ,size: 6)
   recent_shops = []
   10.times do
-    Inventory.create(price_cents: rand(1800..2600) ,store_id: (Store.first.id..Store.last.id).grep_v(recent_shops).sample)
+    Inventory.create(price: rand(18.00..26.00) ,store_id: ((Store.first.id..Store.last.id).reject { |i| recent_shops.include?(i) }).sample )
     InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-    puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price_cents.to_f / 100).round(2)} at #{Store.find( Inventory.last.store_id).name}"
+    puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
     recent_shops << Inventory.last.store_id
   end
 end
