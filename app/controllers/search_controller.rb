@@ -5,12 +5,14 @@ class SearchController < ApplicationController
   end
 
   def results
+    # raise
     @stores = Store.all
 
     @markers = @stores.map do |store|
       {
         lat: store.latitude,
-        lng: store.longitude
+        lng: store.longitude,
+        image_url: helpers.asset_url('logo.png')
       }
     end
   end
