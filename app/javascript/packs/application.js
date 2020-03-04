@@ -1,3 +1,2 @@
 import "bootstrap";
-import { loadDynamicBannerText } from '../components/checkbox';
-drinksCheckbox();
+import { toggleActiveOnClick } from '../components/checkbox';
