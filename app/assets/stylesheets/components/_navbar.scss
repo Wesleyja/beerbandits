@@ -1,12 +1,25 @@
-.navbar-lewagon {
+.navbar-beer-bandits {
   justify-content: space-between;
   background: white;
-}
-
-.navbar-lewagon .navbar-collapse {
+  .navbar-collapse {
   flex-grow: 0;
+	}
+	.navbar-brand {
+		display: flex;
+		align-items: center;
+
+	}
+	.navbar-brand img {
+  width: 40px;
+  margin-right: 10px;
+	}
+	.navbar-brand-title {
+		font-family: 'ZCOOL QingKe HuangYou', cursive;
+		font-size: 24px;
+	}
+	.navbar-toggler {
+		border: none;
+	}
 }
 
-.navbar-lewagon .navbar-brand img {
-  width: 40px;
-}
+

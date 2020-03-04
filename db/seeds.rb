@@ -2,7 +2,7 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 require 'faker'
 require 'csv'
-# require 'byebug'
+require 'byebug'
 puts "Destorying Users"
 User.destroy_all
 puts "Destorying Inventory Product"
@@ -67,3 +67,6 @@ csv.each do |row|
     recent_shops << Inventory.last.store_id
   end
 end
+
+
+
