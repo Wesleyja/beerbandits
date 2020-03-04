@@ -10,4 +10,4 @@ const toggleActiveOnClick = (drink) => {
 
 drinksCheckbox.forEach(toggleActiveOnClick);
 
-export { drinksCheckbox };
+export { toggleActiveOnClick };

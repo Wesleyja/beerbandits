@@ -9,9 +9,6 @@
 	<!-- Medium Emphasis Button -->
 	<button type="button" class="btn btn-secondary">Secondary</button>
 
-	<!-- Card Hight Emphasis Button -->
-	<button type="button" class="btn btn-success">Card Primary</button>
-
 	<!-- Card Low Emphasis Button -->
 	<button type="button" class="btn btn-light">Card Secondary</button>
 
@@ -55,7 +52,6 @@
   </form>
 
 
-
 </section>
 <hr/>
 
@@ -91,12 +87,87 @@
 <section>
 	<h2>Dropdown Button</h2>
 
+	<div class="btn-group">
+	  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Filter
+	  </button>
+	  <div class="dropdown-menu dropdown-menu-center">
+	    <button class="dropdown-item" type="button">Action</button>
+	    <button class="dropdown-item" type="button">Another action</button>
+	    <button class="dropdown-item" type="button">Something else here</button>
+	  </div>
+	</div>
+	<div class="btn-group">
+	  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Filter
+	  </button>
+	  <div class="dropdown-menu dropdown-menu-center">
+	    <button class="dropdown-item" type="button">Action</button>
+	    <button class="dropdown-item" type="button">Another action</button>
+	    <button class="dropdown-item" type="button">Something else here</button>
+	  </div>
+	</div>
+	<div class="btn-group">
+	  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	    Filter
+	  </button>
+	  <div class="dropdown-menu dropdown-menu-center">
+	    <button class="dropdown-item" type="button">Action</button>
+	    <button class="dropdown-item" type="button">Another action</button>
+	    <button class="dropdown-item" type="button">Something else here</button>
+	  </div>
+	</div>
+
+
+
+
 </section>
 <hr/>
 
 
 <section>
 	<h2>Slider</h2>
+
+	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <div class="product-card card d-block w-80">
+					<img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image card-img-top" alt="beer-image"/>
+					<div class="product-card-details">
+						<h2 class="product-card-brand">James Squire</h2>
+						<h3 class="product-card-name">One Fifty Lashes Pale Ale</h3>
+						<p class="product-card-price">$30</p>
+						<div class="product-card-footer">
+							<div class="product-card-distance">20km</div>
+							<div class="btn btn-light">VIEW DETAILS</div>
+						</div>
+					</div>
+				</div>
+	    </div>
+	    <div class="carousel-item">
+	      <div class="product-card card d-block w-80">
+					<img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image card-img-top" alt="beer-image"/>
+					<div class="product-card-details">
+						<h2 class="product-card-brand">James Squire</h2>
+						<h3 class="product-card-name">One Fifty Lashes Pale Ale</h3>
+						<p class="product-card-price">$30</p>
+						<div class="product-card-footer">
+							<div class="product-card-distance">20km</div>
+							<div class="btn btn-light">VIEW DETAILS</div>
+						</div>
+					</div>
+				</div>
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
 
 </section>
 <hr/>
@@ -130,19 +201,53 @@
 <hr/>
 
 <section>
-	<h2>Modal</h2>
+	<h2>Product Modal</h2>
 
-
+	<div class="product-card-modal card">
+		<img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image-modal card-img-top" alt="beer-image"/>
+		<div class="product-card-details-modal">
+			<div class="product-card-details-modal-left">
+				<h2 class="product-card-brand-modal">James Squire</h2>
+				<h3 class="product-card-name-modal">One Fifty Lashes Pale Ale</h3>
+				<p class="product-card-price-modal">$30</p>
+				<div class="product-card-footer-modal">
+					<div class="product-card-distance-modal">20km</div>
+				</div>
+			</div>
+			<div class="product-card-details-modal-right">
+				<div class="modal-card-details-container">
+					<p class="modal-card-details">- 8% alcohol</p>
+					<p class="modal-card-details">- 2 standard drinks</p>
+					<p class="modal-card-details">- $5 per standard drink</p>
+				</div>
+				<div class="btn btn-primary">Route</div>
+			</div>
+		</div>
+	</div>
 
 </section>
 <hr/>
 
 <section>
-	<h2>Form</h2>
+	<h2>Checkbox</h2>
 
-
+	<div class="form-group">
+	  <input type="hidden" name="post[category_ids][]">
+	  <div>
+	    <% Drink::CATEGORIES.each_with_index do |category, index| %>
+	    <div class="clickable-card">
+	      <input type="checkbox" class="hidden" value="<%= category[index] %>">
+	      <label for="post_category_ids_<%= category[index] %>">
+	        <%= category %>
+	      </label>
+	    	
+	    </div>
+	    <% end %>
+	   </div>
+	</div>
 
 </section>
 
 <hr/>
+
 </div>
