@@ -33,3 +33,4 @@ end
 
 gem 'devise'
 gem 'money-rails'
+gem 'geocoder'
