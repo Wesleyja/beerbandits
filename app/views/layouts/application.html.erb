@@ -8,7 +8,10 @@
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+
   </head>
+
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
@@ -20,5 +23,21 @@
     <%= javascript_include_tag 'application' %>
     <%= javascript_pack_tag 'application' %>
     <%# for notifications and alerts used by devise gem %>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+
+    <script>
+      var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 1.63,
+        loop: false,
+        spaceBetween: 30,
+        centeredSlides: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+      });
+    </script>
+
   </body>
+
 </html>
