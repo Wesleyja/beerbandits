@@ -7,3 +7,16 @@
   data-center="<%= Geocoder.search(params[:results][:location]).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 ></div>
+<div>
+  <% @final_results.first(5).each do |x| %>
+  <div class="card">
+    <h1><%= x.first.product.drink.name %></h1>
+    <h3><%= x.first.product.drink.abv %>%</h3>
+    <h3>$<%= x.first.inventory.price_cents.to_f/100 %></h3>
+    <h3><%= x.first.inventory.store.name %></h3>
+    <h3><%= (((590.4761905/5)*x.first.inventory.price_cents.to_f/100)/(x.last)).round %>m</h3>
+  </div>
+  <% end %>
+</div>
+
+
