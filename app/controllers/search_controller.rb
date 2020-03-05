@@ -38,7 +38,7 @@ class SearchController < ApplicationController
         final_results[result] = ranked_value
       end
     end
-    final_results = final_results.sort_by {|k, v| [v, k]}
+    @final_results = final_results.sort_by {|k, v| [v, k]}
     @markers = find_stores(stores)
   end
 
