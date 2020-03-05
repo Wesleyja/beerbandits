@@ -5,7 +5,7 @@ const initAutocomplete = () => {
   if (addressInput) {
     var placesAutocomplete = places({
       appId: 'pl6MOBGWO5K2',
-      apiKey: '1ab7507646816c1fa69ea8a9b3065f0b',
+      apiKey: '75f7e43a6f2956e8f744723f36216e95',
       container: document.querySelector('#store-location'),
       useDeviceLocation: true
     });
