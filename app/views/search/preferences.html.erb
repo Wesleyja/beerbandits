@@ -3,7 +3,7 @@
   <div>
     <%= simple_form_for :results, url: results_path, method: :get do |f| %>
     <%= f.collection_check_boxes :category, [['Cider', 'Cider'], ['IPA', 'IPA'], ['Lager', 'Lager'], ['Pale Ale','Pale Ale']], :first, :last, include_hidden: false %>
-    <%= f.input :size, as: :radio_buttons, collection: [[1, 'Singel'], [[4, 6], '4 or 6 Pack'], [[24, 30], 'Case']], label_method: :second, value_method: :first %>
+    <%= f.input :size, as: :radio_buttons, collection: [['single', 'Singel'], ['pack', '4 or 6 Pack'], ['case', 'Case']], label_method: :second, value_method: :first %>
     <%= f.input :location, as: :string, input_html: { id: 'store-location' } %>
     <%= f.button :submit, value: 'Go', "data-disable-with" => "Finding Best Beers for You..." %>
     <% end %>

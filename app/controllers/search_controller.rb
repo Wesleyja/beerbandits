@@ -6,11 +6,24 @@ class SearchController < ApplicationController
   end
 
   def results
-    # raise
-    results = InventoryProduct.all.select do  |inventory_product|
-      params[:results][:size].include?(inventory_product.product.size.to_s) \
-      &&  params[:results][:category].include?(inventory_product.product.drink.category)
+    if params[:results][:size] == "pack"
+      size = [4, 6]
+    elsif params[:results][:size] == "case"
+      size = [24, 30]
+    elsif params[:results][:size] == "single"
+      size = [1]
+    else
+      size = [0]
     end
+    results = InventoryProduct.joins(:product)
+      .joins(product: :drink)
+      .where(products: { size: size })
+      .where(drinks: { category: params[:results][:categoty] })
+
+    # results = InventoryProduct.all.select do  |inventory_product|
+    #   params[:results][:size].include?(inventory_product.product.size.to_s) \
+    #   &&  params[:results][:category].include?(inventory_product.product.drink.category)
+    # end
     final_results = {}
     stores = Store.all.near(params[:results][:location], 2)
     results.each do |result|
