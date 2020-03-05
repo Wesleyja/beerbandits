@@ -18,7 +18,7 @@ class SearchController < ApplicationController
     results = InventoryProduct.joins(:product)
       .joins(product: :drink)
       .where(products: { size: size })
-      .where(drinks: { category: params[:results][:categoty] })
+      .where(drinks: { category: params[:results][:category] })
 
     # results = InventoryProduct.all.select do  |inventory_product|
     #   params[:results][:size].include?(inventory_product.product.size.to_s) \
@@ -36,6 +36,7 @@ class SearchController < ApplicationController
     end
     final_results = final_results.sort_by {|k, v| [v, k]}
     @markers = find_stores(stores)
+    raise
   end
 
   def favourites
