@@ -1,9 +1,16 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
-
-<div>
-  <%= link_to 'Find Beers', preferences_path %>
-</div>
-<div>
-  <%= link_to 'Login', new_user_session_path %>
+<div class="container home-container">
+	<div class="home-buttons-container">
+		<div>
+			<%= link_to 'Find Beers', preferences_path, class: "btn btn-primary" %>
+		</div>
+		<% if user_signed_in? %>
+			<div>
+				<%= link_to 'Favourites', "#", class: "btn btn-primary" %>
+			</div>
+		<% else %>
+			<div>
+				<%= link_to 'Login', new_user_session_path %>
+			</div>
+		<% end %>
+	</div>
 </div>

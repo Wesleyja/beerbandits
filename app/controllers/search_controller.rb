@@ -20,11 +20,13 @@ class SearchController < ApplicationController
     end
     final_results = final_results.sort_by {|k, v| [v, k]}
     @markers = find_stores(stores)
+
+  def favourites
   end
 
   private
 
-  def find_stores(stores)
+  def find_stores(parameters)
     @markers = stores.map do |store|
       {
         lat: store.latitude,

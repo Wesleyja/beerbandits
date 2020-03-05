@@ -19,34 +19,35 @@
 <section>
 	<h2>Checkbox</h2>
 
-  <form class="checkbox-container">
-  	<div class="clickable-card">
-  		<i class="fas fa-beer"></i>
-	  	<label>
-	  		<input type="checkbox" class="hidden" name="checkbox">
-	  		<span class="checkbox-text">Pale Ale</span>
-	  	</label>
+  <form class="checkbox-container">	
+  	
+  	<div class="checkbox-clickable-item">
+  		<input type="checkbox" class="checkbox-input" id="pale-ale" name="checkbox">
+  		<label for="pale-ale" class="checkbox-label">
+	  		<i class="fas fa-beer"></i>
+	  		Pale Ale
+  		</label>
   	</div>
-  	<div class="clickable-card">
-  		<i class="fas fa-beer"></i>
-	  	<label>
-	  		<input type="checkbox" class="hidden" name="checkbox">
-	  		<span class="checkbox-text">Lager</span>
-	  	</label>
+  	<div class="checkbox-clickable-item">
+  		<input type="checkbox" class="checkbox-input" id="lager" name="checkbox">
+  		<label for="lager" class="checkbox-label">
+	  		<i class="fas fa-beer"></i>
+	  		Lager
+  		</label>
   	</div>
-  	<div class="clickable-card">
-  		<i class="fas fa-beer"></i>
-	  	<label>
-	  		<input type="checkbox" class="hidden" name="checkbox">
-	  		<span class="checkbox-text">IPA</span>
-	  	</label>
+  	<div class="checkbox-clickable-item">
+  		<input type="checkbox" class="checkbox-input" id="ipa" name="checkbox">
+  		<label for="ipa" class="checkbox-label">
+	  		<i class="fas fa-beer"></i>
+	  		IPA
+  		</label>
   	</div>
-  	<div class="clickable-card">
-  		<i class="fas fa-beer"></i>
-	  	<label>
-	  		<input type="checkbox" class="hidden" name="checkbox">
-	  		<span class="checkbox-text">Cider</span>
-	  	</label>
+  	<div class="checkbox-clickable-item">
+  		<input type="checkbox" class="checkbox-input" id="cider" name="checkbox">
+  		<label for="cider" class="checkbox-label">
+	  		<i class="fas fa-beer"></i>
+	  		Cider
+  		</label>
   	</div>
 
   </form>
@@ -57,14 +58,17 @@
 
 <section>
 	<h2>Radio</h2>
-	<div class="radio-container">
-		<input type="radio" name="radio" id="option1">
-		<label for="option1" class="radio-label1">
-			<span>Distance</span></label>
-		<input type="radio" name="radio" id="option2">
-		<label for="option2" class="radio-label2">
-			<span>Price</span></label>
-	</div>
+
+	<form>
+		<div class=" radio-container">
+			<input type="radio" name="radio" id="option1">
+			<label for="option1" class="radio-label1">
+				<span>Distance</span></label>
+			<input type="radio" name="radio" id="option2">
+			<label for="option2" class="radio-label2">
+				<span>Price</span></label>
+		</div>
+	</form>
 
 </section>
 <hr/>
@@ -228,16 +232,16 @@
 </section>
 <hr/>
 
-<section>
+<!-- <section>
 	<h2>Checkbox</h2>
 
 	<div class="form-group">
-	  <input type="hidden" name="post[category_ids][]">
+	  <input type="hidden" name="post[category_ids]">
 	  <div>
 	    <% Drink::CATEGORIES.each_with_index do |category, index| %>
 	    <div class="clickable-card">
 	      <input type="checkbox" class="hidden" value="<%= category[index] %>">
-	      <label for="post_category_ids_<%= category[index] %>">
+	      <label for="drink_category_ids_<%= category[index] %>">
 	        <%= category %>
 	      </label>
 	    	
@@ -246,8 +250,6 @@
 	   </div>
 	</div>
 
-</section>
+</section> -->
 
-<hr/>
 
-</div>
