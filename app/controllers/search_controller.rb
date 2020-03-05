@@ -10,6 +10,9 @@ class SearchController < ApplicationController
     @markers = find_stores(@stores)
   end
 
+  def favourites
+  end
+
   private
 
   def find_stores(parameters)
