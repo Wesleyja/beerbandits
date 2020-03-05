@@ -10,17 +10,4 @@ class PagesController < ApplicationController
   def style_guide
   end
 
-  def preferences
-    @drinks = Drink.all
-    @stores = Store.all
-    @products = Product.all
-  end
-
-  def results
-  end
-
-
-  private
-
-
 end
