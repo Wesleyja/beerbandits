@@ -5,10 +5,14 @@
 		border: solid #5D45E0 2px;
 		color: #5D45E0;
 		padding: 6px 30px;
-		&:hover {
-			background-color: #5D45E0;
-			color: white;
-		}
+	}
+	&.btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+		background-color: #5D45E0 !important;
+		color: white !important;
+		border-color: transparent !important;
+		box-shadow: 0 0 5px rgba(0,0,0,.5) !important;
+		transform: scale(1.06);
+    	z-index: 1;
 	}
 	&.btn-secondary {
 		border-radius: 22px;
@@ -20,6 +24,12 @@
 			background-color: #7f7f7f;
 			color: white;
 		}
+	}
+	&.btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
+		background-color: #7f7f7f !important;
+		color: white !important;
+		border-color: #7f7f7f !important;
+		box-shadow: none !important;
 	}
 	&.btn-light {
 		color: #5D45E0;
