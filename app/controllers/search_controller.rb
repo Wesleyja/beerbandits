@@ -29,7 +29,6 @@ class SearchController < ApplicationController
     #   &&  params[:results][:category].include?(inventory_product.product.drink.category)
     # end
     final_results = {}
-    stores = Store.all.near(params[:results][:location], 2)
     current_location = Geocoder.search(params[:results][:location]).first.coordinates
     results.each do |result|
       if stores.include?(result.inventory.store)
