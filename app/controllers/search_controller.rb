@@ -5,9 +5,12 @@ class SearchController < ApplicationController
 
   end
 
-  def results()
+  def results
     # raise
-    results = InventoryProduct.all.select{ |inventory_product| inventory_product.product.size == 6 && inventory_product.product.drink.category == "Lager" }
+    results = InventoryProduct.all.select do  |inventory_product|
+      params[:results][:size].include?(inventory_product.product.size.to_s) \
+      &&  params[:results][:category].include?(inventory_product.product.drink.category)
+    end
     final_results = {}
     stores = Store.all.near(params[:location], 2)
     results.each do |result|
@@ -20,13 +23,14 @@ class SearchController < ApplicationController
     end
     final_results = final_results.sort_by {|k, v| [v, k]}
     @markers = find_stores(stores)
+  end
 
   def favourites
   end
 
   private
 
-  def find_stores(parameters)
+  def find_stores(store)
     @markers = stores.map do |store|
       {
         lat: store.latitude,
@@ -36,3 +40,5 @@ class SearchController < ApplicationController
     end
   end
 end
+
+
