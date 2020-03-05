@@ -5,7 +5,6 @@ class SearchController < ApplicationController
   end
 
   def results
-    # raise
     @stores = Store.all
     @markers = find_stores(@stores)
   end
@@ -13,7 +12,7 @@ class SearchController < ApplicationController
   private
 
   def find_stores(parameters)
-    stores = parameters.near(params[:location], 2)
+    stores = parameters.near(params[:results][:location], 5)
     @markers = stores.map do |store|
       {
         lat: store.latitude,
