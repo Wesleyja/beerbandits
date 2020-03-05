@@ -5,6 +5,7 @@ class SearchController < ApplicationController
   end
 
   def results
+    raise
     @stores = Store.all
     @markers = find_stores(@stores)
   end
