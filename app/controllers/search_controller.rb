@@ -15,10 +15,14 @@ class SearchController < ApplicationController
     else
       size = [0]
     end
+    stores = Store.all.near(params[:results][:location], 2)
+    store_ids = stores.collect { |x| x.id }
     results = InventoryProduct.joins(:product)
       .joins(product: :drink)
+      .joins(inventory: :store)
       .where(products: { size: size })
       .where(drinks: { category: params[:results][:category] })
+      .where(stores: { id: store_ids })
 
     # results = InventoryProduct.all.select do  |inventory_product|
     #   params[:results][:size].include?(inventory_product.product.size.to_s) \
@@ -26,17 +30,17 @@ class SearchController < ApplicationController
     # end
     final_results = {}
     stores = Store.all.near(params[:results][:location], 2)
+    current_location = Geocoder.search(params[:results][:location]).first.coordinates
     results.each do |result|
       if stores.include?(result.inventory.store)
         price = result.inventory.price_cents.to_f/100
-        distance = Store.find(result.inventory.store_id).distance_to(Geocoder.search(params[:results][:location]).first.coordinates) * 1000
+        distance = Store.find(result.inventory.store_id).distance_to(current_location) * 1000
         ranked_value = ((590.4761905/5)*price)/distance
         final_results[result] = ranked_value
       end
     end
     final_results = final_results.sort_by {|k, v| [v, k]}
     @markers = find_stores(stores)
-    raise
   end
 
   def favourites
