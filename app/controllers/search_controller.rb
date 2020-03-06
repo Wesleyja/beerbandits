@@ -5,7 +5,8 @@ class SearchController < ApplicationController
   end
 
   def results
-  the_params = params[:filters] || params[:results]
+    the_params = params[:filters] || params[:results]
+    the_params[:category] = the_params[:category].split(' ') if params[:filters]
     if the_params[:size] == "pack"
       size = [4, 6]
     elsif the_params[:size] == "case"
@@ -16,13 +17,13 @@ class SearchController < ApplicationController
       size = [0]
     end
     stores = Store.all.near(the_params[:location], 3)
-    store_ids = stores.collect { |x| x.id }
+    store_ids = stores.collect(&:id)
     results = InventoryProduct.joins(:product)
-      .joins(product: :drink)
-      .joins(inventory: :store)
-      .where(products: { size: size })
-      .where(drinks: { category: the_params[:category] })
-      .where(stores: { id: store_ids })
+                              .joins(product: :drink)
+                              .joins(inventory: :store)
+                              .where(products: { size: size })
+                              .where(drinks: { category: the_params[:category] })
+                              .where(stores: { id: store_ids })
 
     # results = InventoryProduct.all.select do  |inventory_product|
     #   the_params[:size].include?(inventory_product.product.size.to_s) \
@@ -32,16 +33,17 @@ class SearchController < ApplicationController
     @current_location = Geocoder.search(the_params[:location]).first.coordinates
     results.each do |result|
       if stores.include?(result.inventory.store)
-        price = result.inventory.price_cents.to_f/100
+        price = result.inventory.price_cents.to_f / 100
         distance = Store.find(result.inventory.store_id).distance_to(@current_location) * 1000
-        ranked_value = ((590.4761905/5)*price)/distance
+        ranked_value = ((590.4761905 / 5) * price) / distance
         final_results[result] = ranked_value
       end
     end
-    @final_results = final_results.sort_by {|k, v| [v, k]}
+    @final_results = final_results.sort_by { |_k, v| v }
     if the_params[:options].class == String
       @final_results = new_distance_param(the_params[:options], the_params[:amount].to_i)
     end
+    # raise
     @markers = find_stores(stores)
   end
 
@@ -51,18 +53,16 @@ class SearchController < ApplicationController
   private
 
   def new_distance_param(type, value)
-    if type == "min"
-      @new_value = (500/6)*value
-    end
     @new_value = value
+    @new_value = (500 / 6) * value if type == "min"
     new_results_hash = {}
-    new_results = @final_results.collect { |x| x.first }
+    new_results = @final_results.collect { |k, _v| k }
     new_results.each do |result|
       distance = result.inventory.store.distance_to(@current_location) * 1000
-      new_ranking = (@new_value * (result.inventory.price_cents.to_f/100))/distance
+      new_ranking = (@new_value * (result.inventory.price_cents.to_f / 100)) / distance
       new_results_hash[result] = new_ranking
     end
-    @final_results = new_results_hash.sort_by {|k, v| [v, k]}
+    @final_results = new_results_hash.sort_by { |_k, v| v }
   end
 
   def standard_drinks_price

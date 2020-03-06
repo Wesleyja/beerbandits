@@ -33,7 +33,7 @@
             <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
             <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %>.  |   <%= x.first.product.drink.abv %>%</p>
             <div class="product-card-footer">
-<!--               <div class="product-card-distance"><%= (((590.4761905/5)*x.first.inventory.price_cents.to_f/100)/(x.last)).round %>m</div> -->
+            <div class="product-card-distance"></div>
             </div>
           </div>
         </div>
