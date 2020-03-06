@@ -5,7 +5,6 @@ class SearchController < ApplicationController
   end
 
   def results
-    raise
     if params[:results][:size] == "pack"
       size = [4, 6]
     elsif params[:results][:size] == "case"
