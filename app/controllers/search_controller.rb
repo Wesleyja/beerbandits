@@ -29,11 +29,11 @@ class SearchController < ApplicationController
     #   &&  params[:results][:category].include?(inventory_product.product.drink.category)
     # end
     final_results = {}
-    current_location = Geocoder.search(params[:results][:location]).first.coordinates
+    @current_location = Geocoder.search(params[:results][:location]).first.coordinates
     results.each do |result|
       if stores.include?(result.inventory.store)
         price = result.inventory.price_cents.to_f/100
-        distance = Store.find(result.inventory.store_id).distance_to(current_location) * 1000
+        distance = Store.find(result.inventory.store_id).distance_to(@current_location) * 1000
         ranked_value = ((590.4761905/5)*price)/distance
         final_results[result] = ranked_value
       end
@@ -46,6 +46,32 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def new_distance_param(value)
+    if
+      # new value params has minutes
+      new_value = (500/6)*value
+    end
+    byebug
+    new_value = value
+    current_location = Geocoder.search(params[:results][:location]).first.coordinates
+    new_results_hash = {}
+    new_results = @final_results.collect { |x| x.first }
+    new_results.each do |result|
+      distance = result.inventory.store.distance_to(@current_location) * 1000
+      new_ranking = (new_value * (result.inventory.price_cents.to_f/100))/distance
+      new_results_hash[result] = new_ranking
+    end
+    @final_results = new_results
+  end
+
+  def standard_drinks_price
+    byebug
+    @final_results.each do |result|
+      result[1] = result[1] / (result[0].product.drink.standard_drink)
+    end
+  end
+
 
   def find_stores(stores)
     @markers = stores.map do |store|
