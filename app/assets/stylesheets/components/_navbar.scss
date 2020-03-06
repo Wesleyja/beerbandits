@@ -6,8 +6,11 @@
 	}
 	.navbar-brand {
 		display: flex;
-		align-items: center;
-
+		// align-items: center;
+	}
+	.navbar-nav {
+		align-items: flex-end;
+    padding-right: 16px;
 	}
 	.navbar-brand img {
   width: 40px;

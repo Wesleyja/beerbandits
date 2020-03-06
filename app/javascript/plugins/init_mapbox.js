@@ -25,9 +25,9 @@ const initMapbox = () => {
           const element = document.createElement('div');
             element.className = 'marker';
             element.style.backgroundImage = `url('${marker.image_url}')`;
-            element.style.backgroundSize = 'contain';
-            element.style.width = '25px';
-            element.style.height = '25px';
+            element.style.backgroundSize = 'cover';
+            element.style.width = '26px';
+            element.style.height = '32px';
 
           new mapboxgl.Marker(element)
             .setLngLat([ marker.lng, marker.lat ])
