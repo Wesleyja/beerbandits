@@ -32,6 +32,7 @@
             <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
             <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
             <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %>.  |   <%= x.first.product.drink.abv %>%</p>
+            <%= link_to "Let's get there", "https://www.google.com/maps/dir/#{the_params[:location]}/#{x.first.inventory.store.address}" %>
             <div class="product-card-footer">
             <div class="product-card-distance"></div>
             </div>
