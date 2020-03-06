@@ -14,7 +14,7 @@
     </div>
     <%= f.input :size, as: :radio_buttons, collection: [['single', 'Single'], ['pack', '4 or 6 Pack'], ['case', 'Case']], label_method: :second, value_method: :first %>
     <%= f.input :location, as: :string, input_html: { id: 'store-location' } %>
-    <%= f.button :submit, value: 'Go', "data-disable-with" => "Finding Best Beers for You..." %>
+    <%= f.button :submit, value: 'Go', "data-disable-with" => "Finding Best Beers for You...", class: "btn btn-primary" %>
     <% end %>
   </div>
 

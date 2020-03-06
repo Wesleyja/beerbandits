@@ -5,11 +5,11 @@
 		</div>
 		<% if user_signed_in? %>
 			<div>
-				<%= link_to 'Favourites', "#", class: "btn btn-primary" %>
+				<%= link_to 'Favourites', favourites_path, class: "btn btn-primary" %>
 			</div>
 		<% else %>
 			<div>
-				<%= link_to 'Login', new_user_session_path %>
+				<%= link_to 'Login', new_user_session_path, class: "btn btn-primary" %>
 			</div>
 		<% end %>
 	</div>
