@@ -2,10 +2,10 @@ class SearchController < ApplicationController
   skip_before_action :authenticate_user!
 
   def preferences
-
   end
 
   def results
+    raise
     if params[:results][:size] == "pack"
       size = [4, 6]
     elsif params[:results][:size] == "case"
