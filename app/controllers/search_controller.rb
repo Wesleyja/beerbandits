@@ -2,7 +2,6 @@ class SearchController < ApplicationController
   skip_before_action :authenticate_user!
 
   def preferences
-
   end
 
   def results
