@@ -1,40 +1,98 @@
-.radio-container {
-	height: 88px;
-	width: 260px;
-	background-color: white;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	overflow: hidden;
-	input[type="radio"] {
-		display: none;
-	}
-	.radio-label1, .radio-label2 {
-		display: block;
-		height: 180px;
-		width: 130px;
-		background-size: 130px 180px;
-		background:linear-gradient(
-			to bottom,
-			white 0, white 90px,
-			#F0C032 90px, #F0C032 180px
-			);
-		position: absolute;
-		top: 0;
-		transition: 0.5s;
-	}
-	.radio-label2 {
-		right: 0;
-	}
-	span {
-		display: flex;
-		height: 90px;
-		width: 130px;
-		justify-content: center;
-		align-items: center;
-	}
-	input:checked + label {
-		background-position: 0 -90px;
-		color: white;
-	}
+.radio-header {
+	font-size: 24px;
 }
+
+.radio-container {
+	display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: 465px;
+  justify-content: space-between;
+}
+
+.simple_form label[for='results_size_single'] {
+  height: 110px;
+  width: 100%;
+  margin-bottom: 0px;
+	background-image: url('single-beer-icon.png');
+	background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  color: transparent;	
+}
+
+.simple_form label[for='results_size_pack'] {
+  height: 140px;
+  width: 100%;
+  margin-bottom: 0px;
+	background-image: url('pack-beer-icon.png');
+	background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  color: transparent;	
+}
+
+.simple_form label[for='results_size_case'] {
+  height: 150px;
+  width: 100%;
+  margin-bottom: 0px;
+	background-image: url('case-beer-icon.png');
+	background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  color: transparent;	
+}
+
+.radio-input {
+	position: absolute;
+	// opacity: 0;
+}
+
+.radio-input:checked ~ .radio-label {
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+
+
+
+// .radio-container {
+// 	height: 88px;
+// 	width: 260px;
+// 	background-color: white;
+// 	justify-content: center;
+// 	align-items: center;
+// 	position: absolute;
+// 	overflow: hidden;
+// 	input[type="radio"] {
+// 		display: none;
+// 	}
+// 	.radio-label1, .radio-label2 {
+// 		display: block;
+// 		height: 180px;
+// 		width: 130px;
+// 		background-size: 130px 180px;
+// 		background:linear-gradient(
+// 			to bottom,
+// 			white 0, white 90px,
+// 			#F0C032 90px, #F0C032 180px
+// 			);
+// 		position: absolute;
+// 		top: 0;
+// 		transition: 0.5s;
+// 	}
+// 	.radio-label2 {
+// 		right: 0;
+// 	}
+// 	span {
+// 		display: flex;
+// 		height: 90px;
+// 		width: 130px;
+// 		justify-content: center;
+// 		align-items: center;
+// 	}
+// 	input:checked + label {
+// 		background-position: 0 -90px;
+// 		color: white;
+// 	}
+// }
