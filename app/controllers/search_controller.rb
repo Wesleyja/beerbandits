@@ -42,7 +42,7 @@ class SearchController < ApplicationController
   end
 
   def favourites
-  end
+  end 
 
   private
 
