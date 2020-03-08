@@ -19,6 +19,11 @@
         <%= a.label class: 'radio-label' %>
       <% end %>
     </div>
+    <div class="radio-text">
+      <p class="radio-text-1">Quiet one</p>
+      <p class="radio-text-2">Big night</p>
+      <p class="radio-text-3">No comment...</p>
+    </div>
     
     <%= f.input :location, as: :string, placeholder: 'Search your location...', label_html: { class: 'preferences-store-location' }, input_html: { id: 'store-location' } %>
     <%= f.button :submit, value: 'Go', "data-disable-with" => "Finding Best Beers for You...", class: "btn btn-primary" %>
