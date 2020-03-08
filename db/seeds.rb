@@ -37,35 +37,7 @@ puts "Making Users"
   User.create(username: Faker::Internet.username,password: 'password', email: Faker::Internet.email)
   puts "#{User.last.email}"
 end
-file = File.read(Rails.root.join('lib', 'seeds', 'bws-locations.json'))
-data_hash = JSON.parse(file)
-data_hash["Stores"].each do |store|
-  if Store.find_by(latitude: store["Latitude"].to_f).nil?
-    store_name = store["Name"]
-    Store.create(latitude: store["Latitude"].to_f,longitude: store["Longitude"].to_f, brand_id: Brand.find_by(name: "BWS").id, name: "BWS #{store_name}" )
-    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
-  end
-end
-urls = ["lat=-37.813907&lon=144.96324",
- "lat=-37.904751&lon=145.162538",
- "lat=-37.777210&lon=145.120348",
- "lat=-37.724354&lon=144.990448",
- "lat=-37.748195&lon=144.871142",
-]
-urls.each_with_index do |latlong, index|
-  url = "https://www.firstchoiceliquor.com.au/api/FindClosest/fc?#{latlong}"
-  time_gate = rand(150..200)
-  puts "sleeping for #{time_gate} seconds"
-  sleep(time_gate)
-  file = URI.open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
-  data_hash = JSON.parse(file)
-  data_hash.each do |store|
-    if Store.find_by(latitude: store["latitude"].to_f).nil?
-      Store.create(latitude: store["latitude"].to_f,longitude: store["longitude"].to_f, brand_id: Brand.find_by(name: "First Choice").id, name: "First Choice #{store["storeName"]}" )
-      puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
-    end
-  end
-end
+
 file = File.read(Rails.root.join('lib', 'seeds', 'danmurphys-locations.json'))
 data_hash = JSON.parse(file)
 data_hash["Stores"].each do |store|
