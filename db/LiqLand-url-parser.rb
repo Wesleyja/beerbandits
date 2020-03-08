@@ -14,7 +14,7 @@ ll_urls.each_with_index do |url, index|
     beer_reference_id = beer["id"]
     beer_url = "https://www.liquorland.com.au/api/products/ll/vic/beer/#{beer_reference_id}"
     # drastically increase this sleep value cause fuck Liqourland API
-    sleep(rand(15..20))
+    sleep(rand(200..250))
     result = URI.open(beer_url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
     beer_hash = JSON.parse(result)
     Drink.create(name: beer_hash["product"]["name"], category: "#{categories[index]}", volume: beer_hash["product"]["volumeMl"], brand: beer_hash["product"]["brand"])

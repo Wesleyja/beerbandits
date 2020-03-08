@@ -1,13 +1,7 @@
 require 'byebug'
 require 'json'
 require 'open-uri'
-urls = ["lat=-37.813907&lon=144.96324",
- "lat=-37.904751&lon=145.162538",
- "lat=-37.777210&lon=145.120348",
- "lat=-37.724354&lon=144.990448",
- "lat=-37.748195&lon=144.871142",
- "lat=-37.819827&lon=144.795136"
-]
+urls = ["lat=-37.823767&lon=144.990841"]
 urls.each_with_index do |latlong, index|
   url = "https://www.firstchoiceliquor.com.au/api/FindClosest/fc?#{latlong}"
   sleep(rand(15..20))
