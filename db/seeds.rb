@@ -20,8 +20,8 @@ puts "Destorying Inventory"
 Inventory.destroy_all
 puts "Destorying Drinks"
 Drink.destroy_all
-# puts "Destorying Stores"
-# Store.destroy_all
+puts "Destorying Stores"
+Store.destroy_all
 # puts "Destorying Brands"
 # Brand.destroy_all
 
