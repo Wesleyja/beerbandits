@@ -20,10 +20,12 @@ puts "Destorying Inventory"
 Inventory.destroy_all
 puts "Destorying Drinks"
 Drink.destroy_all
-puts "Destorying Stores"
-Store.destroy_all
+#---------------------------------------------NEVER DELETE STORES --------------------------------------------------
+# puts "Destorying Stores"
+# Store.destroy_all
 # puts "Destorying Brands"
 # Brand.destroy_all
+#---------------------------------------------NEVER DELETE STORES --------------------------------------------------
 
 # Examples:
 # csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
@@ -45,7 +47,7 @@ urls = ["lat=-37.813907&lon=144.96324",
 ]
 urls.each_with_index do |latlong, index|
   url = "https://www.liquorland.com.au/api/FindClosest/ll?#{latlong}"
-  sleep(rand(15..20))
+  sleep(rand(100..200))
   file = URI.open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
   data_hash = JSON.parse(file)
   data_hash.each do |store|
@@ -58,13 +60,15 @@ end
 file = URI.open("https://api.bws.com.au/apis/ui/StoreLocator/Stores/bws?state=VIC&type=allstores").read
 data_hash = JSON.parse(file)
 data_hash["Stores"].each do |store|
-  store_name = store["Name"]
-  Store.create(latitude: store["Latitude"].to_f,longitude: store["Longitude"].to_f, brand_id: Brand.find_by(name: "BWS").id, name: "BWS #{store_name}" )
-  puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
+  if Store.find_by(latitude: store["Latitude"].to_f).nil?
+    store_name = store["Name"]
+    Store.create(latitude: store["Latitude"].to_f,longitude: store["Longitude"].to_f, brand_id: Brand.find_by(name: "BWS").id, name: "BWS #{store_name}" )
+    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
+  end
 end
 urls.each_with_index do |latlong, index|
   url = "https://www.firstchoiceliquor.com.au/api/FindClosest/fc?#{latlong}"
-  sleep(rand(15..20))
+  sleep(rand(100..200))
   file = URI.open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
   data_hash = JSON.parse(file)
   data_hash.each do |store|
@@ -78,7 +82,7 @@ url = "https://api.danmurphys.com.au/apis/ui/StoreLocator/Stores/danmurphys"
 file = URI.open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
 data_hash = JSON.parse(file)
 data_hash["Stores"].each do |store|
-  if store["State"] == "VIC"
+  if store["State"] == "VIC" && Store.find_by(latitude: store["Latitude"].to_f).nil?
     Store.create(latitude: store["Latitude"].to_f,longitude: store["Longitude"].to_f, brand_id: Brand.find_by(name: "Dan Murphy's").id, name: "Dan Murphy's #{store["Name"]}" )
     puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
   end
