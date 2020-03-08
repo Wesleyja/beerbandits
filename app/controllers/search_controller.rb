@@ -8,9 +8,9 @@ class SearchController < ApplicationController
     the_params = params[:filters] || params[:results]
     the_params[:category] = the_params[:category].split(' ') if params[:filters]
     if the_params[:size] == "pack"
-      size = [4, 6]
+      size = [4, 6, 10]
     elsif the_params[:size] == "case"
-      size = [24, 30]
+      size = [24, 30, 12]
     elsif the_params[:size] == "single"
       size = [1]
     else
