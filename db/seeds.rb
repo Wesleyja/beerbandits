@@ -20,7 +20,7 @@ puts "Destorying Inventory"
 Inventory.destroy_all
 puts "Destorying Drinks"
 Drink.destroy_all
-#---------------------------------------------NEVER DELETE STORES --------------------------------------------------
+#---------------------NEVER DELETE STORES --ABSOLUTE ------------------------------------------------
 # puts "Destorying Stores"
 # Store.destroy_all
 # puts "Destorying Brands"
@@ -37,16 +37,7 @@ puts "Making Users"
   User.create(username: Faker::Internet.username,password: 'password', email: Faker::Internet.email)
   puts "#{User.last.email}"
 end
-
-file = URI.open("https://www.liquorland.com.au/api/FindClosest/ll?lat=-37.819827&lon=144.795136", "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
-data_hash = JSON.parse(file)
-data_hash.each do |store|
-  if Store.find_by(latitude: store["latitude"].to_f).nil?
-    Store.create(latitude: store["latitude"].to_f,longitude: store["longitude"].to_f, brand_id: Brand.find_by(name: "Liqourland").id, name: "Liqourland #{store["storeName"]}" )
-    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
-  end
-end
-file = URI.open("https://api.bws.com.au/apis/ui/StoreLocator/Stores/bws?state=VIC&type=allstores").read
+file = File.read(Rails.root.join('lib', 'seeds', 'bws-locations.json'))
 data_hash = JSON.parse(file)
 data_hash["Stores"].each do |store|
   if Store.find_by(latitude: store["Latitude"].to_f).nil?
@@ -75,8 +66,7 @@ urls.each_with_index do |latlong, index|
     end
   end
 end
-url = "https://api.danmurphys.com.au/apis/ui/StoreLocator/Stores/danmurphys"
-file = URI.open(url, "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.13; rv:73.0) Gecko/20100101 Firefox/73.0").read
+file = File.read(Rails.root.join('lib', 'seeds', 'danmurphys-locations.json'))
 data_hash = JSON.parse(file)
 data_hash["Stores"].each do |store|
   if store["State"] == "VIC" && Store.find_by(latitude: store["Latitude"].to_f).nil?
