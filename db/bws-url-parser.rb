@@ -6,10 +6,14 @@ bws_paleale_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fbeer
 bws_ipa_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fbeer-style%2Findian-pale-ale&banner=true&bannerSlotIds=Category_Desktop&category=indian+pale+ale&department=beer&isRequestAds=false&maxNumberOfAds=4&pageNumber=1&pageSize=100&pageType=Category&sortType=Browse_Relevance_LocalSales&subDepartment=beer+style"
 bws_lager_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fbeer-style%2Flager&banner=true&bannerSlotIds=Category_Desktop&category=lager&department=beer&isRequestAds=false&maxNumberOfAds=4&pageNumber=1&pageSize=999&pageType=Category&sortType=Browse_Relevance_LocalSales&subDepartment=beer+style"
 bws_url = [bws_lager_url, bws_ipa_url, bws_paleale_url, bws_cider_url]
+file_paleale = File.read(Rails.root.join('lib', 'seeds', 'bws-pale-ale.json'))
+file_lager = File.read(Rails.root.join('lib', 'seeds', 'bws-lager.json'))
+file_ipa = File.read(Rails.root.join('lib', 'seeds', 'bws-ipa.json'))
+file_cider = File.read(Rails.root.join('lib', 'seeds', 'bws-cider.json'))
+bws_jsons = [file_lager, file_ipa, file_paleale, file_cider]
 categories = ["Lager", "IPA", "Pale Ale", "Cider"]
-bws_url.each_with_index do |url, index|
-  bws_open = URI.open(url).read
-  data_hash = JSON.parse(bws_open)
+bws_jsons.each_with_index do |url, index|
+  data_hash = JSON.parse(url)
   data_hash["Bundles"].each do |beer|
     beer["Products"].each do |x|
     # if the value is true, then its the hash with the single unit bottle, which has the % and Brand and Volume
