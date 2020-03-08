@@ -38,7 +38,7 @@ puts "Making Users"
   puts "#{User.last.email}"
 end
 
-file = File.read(Rails.root.join('lib', 'seeds', 'danmurphys-locations.json'))
+file = File.read(Rails.root.join('lib', 'seeds', 'danmurphys-location.json'))
 data_hash = JSON.parse(file)
 data_hash["Stores"].each do |store|
   if store["State"] == "VIC" && Store.find_by(latitude: store["Latitude"].to_f).nil?
