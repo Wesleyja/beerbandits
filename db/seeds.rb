@@ -8,7 +8,7 @@ require 'uri'
 require 'net/http'
 require "base64"
 
-# require 'byebug'
+# # require 'byebug'
 categories = ["Lager", "IPA", "Pale Ale", "Cider"]
 puts "Destorying Users"
 User.destroy_all
@@ -27,7 +27,7 @@ Store.destroy_all
 puts "Destorying Brands"
 Brand.destroy_all
 #---------------------NEVER DELETE STORES --ABSOLUTE PAIN TO SEED ------------------------------------------------
-
+start_time = Time.now
 # Examples:
 # csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 brands = ["BWS", "Liqourland", "Dan Murphy's", "First Choice"]
@@ -133,6 +133,7 @@ bws_jsons.each_with_index do |url, index|
   data_hash["Bundles"].each do |beer|
     beer["Products"].each do |x|
     # if the value is true, then its the hash with the single unit bottle, which has the % and Brand and Volume
+    @created = "false"
       if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "productunitquantity" }]["Value"] == "1"
         if x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorsize" }.nil?
           volume = x["PackageSize"].gsub(/\D/, "").to_i || 0
@@ -146,16 +147,19 @@ bws_jsons.each_with_index do |url, index|
         else
           abv = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }]["Value"].gsub(/\D$/, "").to_f || 0
         end
-        Drink.create(
-        name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "product_short_name" }]["Value"],
-        category: "#{categories[index]}",
-        volume: volume,
-        abv: abv,
-        brand: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
-        )
-        puts "Drink = #{Drink.last.name}"
-        # Category = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorstyle" }]["Value"]
-        # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+        if volume > 100 && abv > 3 && x["Price"] > 3
+          @created = "true"
+          Drink.create(
+          name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "product_short_name" }]["Value"],
+          category: "#{categories[index]}",
+          volume: volume,
+          abv: abv,
+          brand: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+          )
+          puts "Drink = #{Drink.last.name}"
+          # Category = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorstyle" }]["Value"]
+          # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+        end
       end
       rescue
         next
@@ -173,12 +177,14 @@ bws_jsons.each_with_index do |url, index|
       if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webpacktype" }]["Value"] == "Case" && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "productunitquantity" }]["Value"] == "1"
         size = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "displayunitquantity" }]["Value"].to_i
       end
-      Product.create(drink_id: Drink.last.id, size: size)
-      stores = Store.where(brand_id: Brand.find_by(name: 'BWS')).ids
-      stores.each do |id|
-        Inventory.create(price: x["Price"], store_id: id)
-        InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-        puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+      if @created == "true"
+        Product.create(drink_id: Drink.last.id, size: size)
+        stores = Store.where(brand_id: Brand.find_by(name: 'BWS')).ids
+        stores.each do |id|
+          Inventory.create(price: x["Price"], store_id: id)
+          InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
+          puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+        end
       end
     end
   end
@@ -194,6 +200,7 @@ categories = ["Lager", "IPA", "Pale Ale", "Cider"]
 dan_jsons.each_with_index do |url, index|
   data_hash = JSON.parse(url)
   data_hash["Bundles"].each do |beer|
+    @created = "false"
     if beer["Products"].empty? || beer["Products"].nil?
       next
     end
@@ -203,20 +210,22 @@ dan_jsons.each_with_index do |url, index|
         next
       end
       # if the value is true, then its the hash with the single unit bottle, which has the % and Brand and Volume
-      Drink.create(
-      name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "producttitle" }]["Value"],
-      category: "#{categories[index]}",
-      volume: x["PackageSize"].gsub(/\D/, "").to_i,
-      abv: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub(/\D$/, "").to_f,
-      brand: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webbrandname" }]["Value"]
-      )
-      puts "Drink = #{Drink.last.name}"
+      if x["PackageSize"].gsub(/\D/, "").to_i > 100 && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f > 3 && x["Prices"].values.collect { |x| x["Value"] }.include?(0) == false
+        @created = "true"
+        Drink.create(
+        name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "producttitle" }]["Value"],
+        category: "#{categories[index]}",
+        volume: x["PackageSize"].gsub(/\D/, "").to_i,
+        abv: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f,
+        brand: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webbrandname" }]["Value"]
+        )
+        puts "Drink = #{Drink.last.name}"
+      end
         # Category = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorstyle" }]["Value"]
         # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
       rescue
         next
     end
-    puts "Making Products"
     beer["Products"].first["Prices"].each do |x|
       if x.last.first.last.nil? || x.last.first.last.empty?
         next
@@ -239,18 +248,23 @@ dan_jsons.each_with_index do |url, index|
         size = 1
       end
       # if Drink.find_by(product_number: #value ).nil? -> then add new product / otherwise update
-      Product.create(drink_id: Drink.last.id, size: size)
-      stores = Store.where(brand_id: Brand.find_by(name: "Dan Murphy's")).ids
-      stores.each do |id|
-        Inventory.create(price: x.last["Value"], store_id: id)
-        InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-        puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+      if @created == "true"
+        puts "Making Products"
+        Product.create(drink_id: Drink.last.id, size: size)
+        stores = Store.where(brand_id: Brand.find_by(name: "Dan Murphy's")).ids
+        stores.each do |id|
+          Inventory.create(price: x.last["Value"], store_id: id)
+          InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
+          puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+        end
       end
     end
   end
 end
 # -----------------------------------------------------------------------
-
+end_time = Time.now
+total_time = end_time - start_time
+puts total_time
 
 
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
