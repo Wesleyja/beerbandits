@@ -1,4 +1,5 @@
 <div class="container">
+  <h2>Pick your poison:</h2>
   <div>
     <%= simple_form_for :results, url: results_path, method: :get do |f| %>
 
@@ -11,8 +12,20 @@
 	        <% end %>
 	    <% end %>
     </div>
-    <%= f.input :size, as: :radio_buttons, collection: [['single', 'Single'], ['pack', '4 or 6 Pack'], ['case', 'Case']], label_method: :second, value_method: :first %>
-    <%= f.input :location, as: :string, input_html: { id: 'store-location' } %>
+    <h2 class="radio-header">Plans for tonight?</h2>
+    <div class="radio-container">
+      <%= f.collection_radio_buttons(:size, [['single', 'Single'], ['pack', '4 or 6 Pack'], ['case', 'Case']], :first, :last, include_hidden: false) do |a| %>
+        <%= a.radio_button class: 'radio-input' %>
+        <%= a.label class: 'radio-label' %>
+      <% end %>
+    </div>
+    <div class="radio-text">
+      <p class="radio-text-1">Quiet one</p>
+      <p class="radio-text-2">Big night</p>
+      <p class="radio-text-3">No comment...</p>
+    </div>
+    
+    <%= f.input :location, as: :string, placeholder: 'Search your location...', label_html: { class: 'preferences-store-location' }, input_html: { id: 'store-location' } %>
     <%= f.button :submit, value: 'Go', "data-disable-with" => "Finding Best Beers for You...", class: "btn btn-primary" %>
     <% end %>
   </div>
