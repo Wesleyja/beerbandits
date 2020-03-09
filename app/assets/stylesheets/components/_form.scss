@@ -29,3 +29,11 @@
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
 	color: black;
 }
+
+.col-form-label {
+  display: none;
+}
+
+.preferences-store-location {
+  display: none;
+}

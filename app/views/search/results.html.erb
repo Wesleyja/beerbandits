@@ -24,13 +24,14 @@
 
 <div class="swiper-container">
   <div class="swiper-wrapper">
-    <% @final_results.first(5).each do |x| %>
+    <% @final_results.first(10).each do |x| %>
       <div class="swiper-slide">
         <div class="product-card card">
           <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image card-img-top" alt="beer-image"/>
           <div class="product-card-details">
             <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
             <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
+            <p>hello</p>
             <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %>.  |   <%= x.first.product.drink.abv %>%</p>
             <%= link_to "Let's get there", "https://www.google.com/maps/dir/#{the_params[:location]}/#{x.first.inventory.store.address}" %>
             <div class="product-card-footer">

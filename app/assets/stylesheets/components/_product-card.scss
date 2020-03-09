@@ -1,6 +1,4 @@
 .product-card {
-	// width: 256px;
-	// width: 210px;
   height: 342px;
   padding: 12px;
 	.product-card-image {
@@ -16,16 +14,13 @@
 	}
 	.product-card-brand {
 		font-size: 22px;
-		// margin-bottom: 2px;
 	}
 	.product-card-name {
 		font-size: 15px;
-		// margin-bottom: 6px;
 	}
 	.product-card-price {
 		font-size: 15px;
 		color: #616161;
-		// margin-bottom: 6px;
 	}
 	.product-card-footer {
 		display: flex;
