@@ -147,7 +147,7 @@ bws_jsons.each_with_index do |url, index|
         else
           abv = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }]["Value"].gsub(/\D$/, "").to_f || 0
         end
-        if volume > 100 && abv > 3 && x["Price"] > 3
+        if volume > 100 && abv > 3 && x["Price"] > 3 && volume < 400 && x["Price"] < 90
           @created = "true"
           Drink.create(
           name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "product_short_name" }]["Value"],
@@ -161,8 +161,6 @@ bws_jsons.each_with_index do |url, index|
           # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
         end
       end
-      rescue
-        next
     end
 
     puts "Making Products"
@@ -210,7 +208,7 @@ dan_jsons.each_with_index do |url, index|
         next
       end
       # if the value is true, then its the hash with the single unit bottle, which has the % and Brand and Volume
-      if x["PackageSize"].gsub(/\D/, "").to_i > 100 && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f > 3 && x["Prices"].values.collect { |x| x["Value"] }.include?(0) == false
+      if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f < 20 && x["PackageSize"].gsub(/\D/, "").to_i > 100 && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f > 3 && x["Prices"].values.collect { |x| x["Value"] }.include?(0) == false && x["Prices"].values.collect { |x| x["Value"] }.any?{|x| x >= 90 } == false
         @created = "true"
         Drink.create(
         name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "producttitle" }]["Value"],
@@ -227,7 +225,7 @@ dan_jsons.each_with_index do |url, index|
         next
     end
     beer["Products"].first["Prices"].each do |x|
-      if x.last.first.last.nil? || x.last.first.last.empty?
+      if x.last.first.last.nil? || x.last.first.last.empty? || x.first == "promoprice"
         next
       end
       if x.last.first.last.include?("24")
@@ -246,6 +244,9 @@ dan_jsons.each_with_index do |url, index|
         size = 6
       else
         size = 1
+      end
+      if size == 1
+        next
       end
       # if Drink.find_by(product_number: #value ).nil? -> then add new product / otherwise update
       if @created == "true"
