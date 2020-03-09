@@ -1,33 +1,70 @@
 <div class="container">
-  <h2>Pick your poison:</h2>
-  <div>
-    <%= simple_form_for :results, url: results_path, method: :get do |f| %>
 
-    <div class="checkbox-container">
-	    <%= f.collection_check_boxes(:category, [['Cider', 'Cider'], ['IPA', 'IPA'], ['Lager', 'Lager'], ['Pale Ale','Pale Ale']], :first, :last, include_hidden: false) do |b| %>
-	        <%= b.check_box class: 'checkbox-input' %>
-	        <%= b.label class: 'checkbox-label' do %>
-	        	<i class="fas fa-beer"></i>
-	        	<%= b.text %>
-	        <% end %>
-	    <% end %>
-    </div>
-    <h2 class="radio-header">Plans for tonight?</h2>
-    <div class="radio-container">
-      <%= f.collection_radio_buttons(:size, [['single', 'Single'], ['pack', '4 or 6 Pack'], ['case', 'Case']], :first, :last, include_hidden: false) do |a| %>
-        <%= a.radio_button class: 'radio-input' %>
-        <%= a.label class: 'radio-label' %>
-      <% end %>
-    </div>
-    <div class="radio-text">
-      <p class="radio-text-1">Quiet one</p>
-      <p class="radio-text-2">Big night</p>
-      <p class="radio-text-3">No comment...</p>
-    </div>
+    <%= simple_form_for :results, url: results_path, method: :get do |f| %>
     
-    <%= f.input :location, as: :string, placeholder: 'Search your location...', label_html: { class: 'preferences-store-location' }, input_html: { id: 'store-location' } %>
-    <%= f.button :submit, value: 'Go', "data-disable-with" => "Finding Best Beers for You...", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+    <div class="multistep-form js-multistep-form">
+
+      <div class="multistep-form-step js-multistep-form-step multistep-form-step--active">
+        <div class="checkbox-container">
+          <h2>Pick your poison:</h2>
+          <div class="checkbox-options">
+      	    <%= f.collection_check_boxes(:category, [['Cider', 'Cider'], ['IPA', 'IPA'], ['Lager', 'Lager'], ['Pale Ale','Pale Ale']], :first, :last, include_hidden: false) do |b| %>
+      	        <%= b.check_box class: 'checkbox-input' %>
+      	        <%= b.label class: 'checkbox-label' do %>
+      	        	<i class="fas fa-beer"></i>
+      	        	<%= b.text %>
+      	        <% end %>
+      	    <% end %>
+          </div>
+          <div class="d-flex justify-content-center" >
+            <button type="button" class="btn btn-primary js-multistep-form-step-next-btn">
+              Next
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="multistep-form-step js-multistep-form-step">
+        <div class="radio-container">
+          <h2 class="radio-header">Plans for tonight?</h2>
+          <div class="radio-options">
+            <%= f.collection_radio_buttons(:size, [['single', 'Single'], ['pack', '4 or 6 Pack'], ['case', 'Case']], :first, :last, include_hidden: false) do |a| %>
+              <%= a.radio_button class: 'radio-input' %>
+              <%= a.label class: 'radio-label' %>
+            <% end %>
+          </div>
+          <div class="radio-text">
+            <p class="radio-text-1">Quiet<br>one</p>
+            <p class="radio-text-2">Big<br>night</p>
+            <p class="radio-text-3">No<br>comment...</p>
+          </div>
+          <div class="d-flex justify-content-center">
+            <button type="button" class="btn btn-primary js-multistep-form-step-previous-btn">
+              Previous
+            </button>
+            <button type="button" class="btn btn-primary js-multistep-form-step-next-btn">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="multistep-form-step js-multistep-form-step">
+        <%= f.input :location, as: :string, placeholder: 'Search your location...', label_html: { class: 'preferences-store-location' }, input_html: { id: 'store-location' } %>
+        <div class="d-flex justify-content-center" >
+          <button type="button" class="btn btn-primary js-multistep-form-step-previous-btn">
+            Previous
+          </button>
+          <%= f.button :submit, value: 'Results', "data-disable-with" => "Results", class: "btn btn-primary js-multistep-form-step-next-btn" %>
+          <% end %>
+        </div>
+      </div>
+      
+      
+
+  
+    </div>
+
 
 </div>

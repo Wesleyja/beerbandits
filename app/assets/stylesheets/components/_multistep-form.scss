@@ -1,0 +1,33 @@
+.multistep-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 90px;
+  align-items: center;
+}
+.multistep-form-step {
+  position: absolute;
+  opacity: 0;
+  // transform: translateX(50%);
+  transition: opacity 0.3s, transform 0.2s;
+}
+.multistep-form-step--active {
+  display: block;
+  z-index: 1;
+  opacity: 1;
+  // transform: translateX(0%);
+}
+
+.js-multistep-form-step-previous-btn {
+  margin: 4px;
+}
+
+.js-multistep-form-step-next-btn {
+  margin: 4px;
+}
+
+#store-location {
+  border-radius: 24px;
+  padding: 24px 16px;
+  width: 280px;
+}
