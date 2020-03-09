@@ -1,5 +1,13 @@
 .checkbox-container {
-  height: 282px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 420px;
+  justify-content: space-between;
+}
+
+.checkbox-options {
+  height: 292px;
   display: flex;
   flex-flow: wrap;
   justify-content: space-evenly;
