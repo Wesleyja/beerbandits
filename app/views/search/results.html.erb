@@ -1,45 +1,75 @@
-
-  <div>
-    <%= simple_form_for :filters, url: results_path, method: :get do |f| %>
-    <% the_params = params[:filters] || params[:results] %>
-      <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
-      <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
-      <%= f.input :size, :as => :hidden, :input_html => { :value => the_params[:size] } %>
-      <%= f.collection_radio_buttons :options, [['Distance in meters', 'meter'], ['Time in minutes', 'min']], :last, :first %>
-      <%= f.input :amount, as: :integer, label: false %>
-      <%= f.button :submit, value: 'Go', "data-disable-with" => "Filtering Best Beers for You..." %>
-    <% end %>
-    </div>
+<div>
+  <%= simple_form_for :filters, url: results_path, method: :get do |f| %>
+  <% the_params = params[:filters] || params[:results] %>
+    <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
+    <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
+    <%= f.input :size, :as => :hidden, :input_html => { :value => the_params[:size] } %>
+    <%= f.collection_radio_buttons :options, [['Distance in meters', 'meter'], ['Time in minutes', 'min']], :last, :first %>
+    <%= f.input :amount, as: :integer, label: false %>
+    <%= f.button :submit, value: 'Go', "data-disable-with" => "Filtering Best Beers for You..." %>
+  <% end %>
+</div>
 
 <div
   id="map"
   style="width: 100%;
-  height: 340px;"
+  height: 100vh;
+  position: relative;"
   data-markers="<%= @markers.to_json %>"
   <% the_params = params[:filters] || params[:results] %>
   data-center="<%= Geocoder.search(the_params[:location]).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
->
-</div>
+  >
 
-<div class="swiper-container">
-  <div class="swiper-wrapper">
-    <% @final_results.first(5).each do |x| %>
-      <div class="swiper-slide">
-        <div class="product-card card">
-          <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image card-img-top" alt="beer-image"/>
-          <div class="product-card-details">
-            <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
-            <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
-            <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %>.  |   <%= x.first.product.drink.abv %>%</p>
-            <%= link_to "Let's get there", "https://www.google.com/maps/dir/#{the_params[:location]}/#{x.first.inventory.store.address}" %>
-            <div class="product-card-footer">
-            <div class="product-card-distance"></div>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      
+      <% @final_results.first(5).each do |x| %>
+        <div class="swiper-slide">
+          <div class="product-card card">
+            <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+            <div class="product-card-details">
+              <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
+              <%= link_to "Let's get there", "https://www.google.com/maps/dir/#{the_params[:location]}/#{x.first.inventory.store.address}" %>
             </div>
           </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+
+      </button>
+
+    </div>
+    <div class="swiper-pagination"></div>
   </div>
-  <div class="swiper-pagination"></div>
+
 </div>
+  
+
+
+ 
+
+
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content product-card-modal card">
+      <div class="modal-body">
+        <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image-modal card-img-top" alt="beer-image"/>
+          <h2 class="product-card-brand-modal">James Squire</h2>
+          <h3 class="product-card-name-modal">One Fifty Lashes Pale Ale</h3>
+          <p class="product-card-price-modal">$30</p>
+          <div class="product-card-footer-modal">
+            <div class="product-card-distance-modal">20km</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- <p>Brand < x.first.product.drink.name %></p> 
+<p>Store < x.first.inventory.store.name %></p>
+<p>Price < x.first.inventory.price_cents.to_f/100 %></p>
+<p>ABV < x.first.product.drink.abv %></p> -->

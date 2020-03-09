@@ -43,7 +43,7 @@ class SearchController < ApplicationController
     if the_params[:options].class == String
       @final_results = new_distance_param(the_params[:options], the_params[:amount].to_i)
     end
-    # raise
+
     @markers = find_stores(stores)
   end
 

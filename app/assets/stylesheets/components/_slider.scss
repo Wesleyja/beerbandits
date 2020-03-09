@@ -11,8 +11,15 @@ body {
 }
 .swiper-container {
   width: 100%;
-  height: 342px;
+  height: 210px;
+  position: absolute !important;
+  bottom: 0px;
+  margin-bottom: 28px;
 }
 .swiper-pagination {
 	opacity: 0;
+}
+
+.swiper-slide {
+  // width: 50% !important;
 }
