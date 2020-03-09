@@ -1,20 +1,15 @@
-Name,"Category
-",abv,volume,brand,size,price
+Name,Category,abv,volume,brand,size,price
 Coopers Original Pale Ale,Pale Ale,4.5,375,Coopers,24,51
 Steam Rail Pale Ale,Pale Ale,4.5,330,Steamrail,24,45
-"4 Pines Pale Ale
-",Pale Ale,5.1,330,4 Pines,6,24.5
+4 Pines Pale Ale,Pale Ale,5.1,330,4 Pines,6,24.5
 3 Pub Circus Pale ale,Pale Ale,4.9,330,3 Pub Circus,6,15
 James Squire 150 Lashes,Pale Ale,4.2,345,James Squire,6,22
 Little Creatures Pale Ale,Pale Ale,5.2,330,Little Creatures,6,23.5
-"Fat Yak Pale Ale
-",Pale Ale,4.7,345,"Matilda Bay
-",24,55
+Fat Yak Pale Ale,Pale Ale,4.7,345,Matilda Bay,24,55
 Tinnies Pale Ale,Pale Ale,4.9,375,Tinnies,6,25
 Lorry Boys Pale Ale,Pale Ale,4.2,330,Lorry Boys,24,45
 Cricketers Arms Spearhead Pale Ale,Pale Ale,4.6,330,Cricketers Arms,24,55
-"Gipps St Pale Ale
-",Pale Ale,5.2,355,Stomping Ground,6,25
+Gipps St Pale Ale,Pale Ale,5.2,355,Stomping Ground,6,25
 Pirate Life Tropical Pale Ale,Pale Ale,4.8,355,Pirate Life,4,19.5
 Mountain Goat Pale Ale,Pale Ale,5.2,330,Mountain Goat,24,69
 Wilde Gluten Free Pale Ale,Pale Ale,4.5,330,Wilde,24,70
@@ -27,65 +22,51 @@ Sierra Nevada Draught Style Pale Ale,Pale Ale,5,355,Sierra Nevada,4,19
 Colonial Pale Ale ,Pale Ale,4.4,375,Colonial,6,24
 Brewmanity Social Beast Pale Ale,Pale Ale,4.5,375,Brewmanity,6,25
 Bridge Road Beechworth Pale Ale,Pale Ale,4.8,330,Bridge Road,6,26
-Bad Shepherd Victoria Pale Ale,Pale Ale,4.2,375,"Bad Shepherd
-",6,24
+Bad Shepherd Victoria Pale Ale,Pale Ale,4.2,375,Bad Shepherd,6,24
 Quiet Deeds Double Time Pale Ale,Pale Ale,4.6,330,Quiet Deeds,6,25
 Feral Hop Hog Pale Ale,Pale Ale,5.8,330,Feral,4,19.5
 Monteiths Pointers Pale Ale,Pale Ale,4.2,330,Monteiths,24,45
 James Squire 150 Lashes,Pale Ale,4.2,330,James Squire,10,30
 Moon Dog Pale Ale,Pale Ale,5,330,Moon Dog,6,22
-"James Squire Hope Thief
-",Pale Ale,5,345,James Squire,6,22
-,,,,,,
+James Squire Hope Thief,Pale Ale,5,345,James Squire,6,22
 Coopers XPA,IPA,5.2,375,Coopers,24,57
 Balter XPA,IPA,5,375,Balter,4,20
 Tinnies Tropical XPA,IPA,4.2,375,Tinnies,6,25
 Bentspoke Cluster 8,IPA,8.8,375,Bentspoke,4,27
-"Hop Stromper IPA
-",IPA,6,355,Stomping Ground,6,29
+Hop Stromper IPA,IPA,6,355,Stomping Ground,6,29
 Parrotdog Rifleman XPA,IPA,4.5,330,Parrotdog,6,22
 Holgate ALpha Crucis Australian XPA,IPA,5.5,330,Holgate,6,26
 Jetty Road IPA,IPA,5.8,375,Jetty Road,4,21
 Somersby Apple Cider,Cider,4.5,330,Somersby,24,46
 Orchard Thieves Apple Cider,Cider,4.5,330,Orchard Thieves,12,20
-"5 Seeds Cloudy Apply Cider
-",Cider,5,345,5 Seeds,24,54
+5 Seeds Cloudy Apply Cider,Cider,5,345,5 Seeds,24,54
 Strongbow Classic Apple Cider,Cider,5,355,Strongbow,24,55
-Mr Finch Apple Cider,Cider,4.5,375,"Mr Finch
-",10,19
+Mr Finch Apple Cider,Cider,4.5,375,Mr Finch,10,19
 Pure Blonde Crisp Apple Cider,Cider,4.2,355,Pure Blonde,24,53
-Mr Finch Low Sugar Apple Cider,Cider,4.5,330,"Mr Finch
-",24,40
-5 Seeds Crisp Apple,Cider,5,345,"5 Seeds
-",24,50
-Mr Finch Apple Cider,Cider,4.5,330,"Mr Finch
-",24,40
+Mr Finch Low Sugar Apple Cider,Cider,4.5,330,Mr Finch,24,40
+5 Seeds Crisp Apple,Cider,5,345,5 Seeds,24,50
+Mr Finch Apple Cider,Cider,4.5,330,Mr Finch,24,40
 Strongbow Sweet Apple Cider,Cider,5,355,Strongbow,24,55
 Fat Pixie Hard Apple Cider,Cider,8,375,Fat Pixie,24,55
 Strongbow Low Carb Cider,Cider,5,375,Strongbow,10,23
 Strongbow Original Apple,Cider,5,375,Strongbow,10,23
 Orchard Thieves Apple Cider,Cider,4.5,330,Orchard Thieves,24,51
 Newtons Crisp Apple Cider,Cider,4.5,330,Newtons,24,43
-"Steamrail Apple Cider
-",Cider,5,330,Steamrail,24,46
+Steamrail Apple Cider,Cider,5,330,Steamrail,24,46
 5 Seeds Apple Cider Can,Cider,5,330,5 Seeds,10,24
 Rekorderlig Hard Apple,Cider,6.5,330,Rekorderlig,24,80
-Mr Finch Cider Rose Bottle,Cider,8,330,"Mr Finch
-",24,45
+Mr Finch Cider Rose Bottle,Cider,8,330,Mr Finch,24,45
 Blossom Rose Cider,Cider,8.2,330,Blossom Rose,24,53
 Mercury Cider Crushed Raspberry,Cider,8.2,375,Mercury Cider,24,60
 Corona Extra,Lager,4.5,355,Corona,24,50
 Heineken ,Lager,5,330,Heineken,24,46
 Goat Lager,Lager,4.2,375,Mountain Goat,24,48
-Stella Artois,Lager,4.8,330,"Stella Artois
-",24,49
+Stella Artois,Lager,4.8,330,Stella Artois,24,49
 Peroni Red Imported,Lager,4.7,330,Peroni,24,46
 Kirin Megumi Bottle,Lager,5,330,Kirin,24,45
 Bure Blonde Organic ,Lager,4,330,Pure Blonde,24,48
-Tiger Lager Bottle,Lager,5,330,"Tiger
-",24,45
-"Byron Bay Lager Bottle
-",Lager,4.2,355,Byron Bay,24,49
+Tiger Lager Bottle,Lager,5,330,Tiger,24,45
+Byron Bay Lager Bottle,Lager,4.2,355,Byron Bay,24,49
 Tsingtao ,Lager,4.5,330,Tsingtao,24,45
 Cantina Pura Cerveza,Lager,4.6,355,Cantina,24,43
 Asahi Super Dry Cans,Lager,5,500,Asahi,24,76
@@ -101,5 +82,4 @@ Grolsch Premium,Lager,5,330,Grolsch,24,43
 Calsberg Pilsner,Lager,4.8,330,Carlsberg,24,48
 Pirate Life Port Local,Lager,4.5,355,Pirate Life,4,16.5
 Lorry Boys Bright Lager,Lager,4.4,330,Lorry Boys,24,45
-"Seis Hermanos Lager
-",Lager,4.5,375,Australian Brewery,24,49
+Seis Hermanos Lager,Lager,4.5,375,Australian Brewery,24,49
