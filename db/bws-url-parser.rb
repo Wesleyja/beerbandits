@@ -1,43 +1,11 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-require 'faker'
-require 'csv'
 require 'open-uri'
 require 'json'
-require 'uri'
-require 'net/http'
-require "base64"
 
-# require 'byebug'
-categories = ["Lager", "IPA", "Pale Ale", "Cider"]
-puts "Destorying Users"
-User.destroy_all
-puts "Destorying Inventory Product"
-InventoryProduct.destroy_all
-puts "Destorying Product"
-Product.destroy_all
-puts "Destorying Inventory"
-Inventory.destroy_all
-#---------------------NEVER DELETE DRINKS --ABSOLUTE PAIN TO SEED ------------------------------------------------
-puts "Destorying Drinks"
-Drink.destroy_all
-#---------------------NEVER DELETE STORES --ABSOLUTE PAIN TO SEED ------------------------------------------------
-# puts "Destorying Stores"
-# Store.destroy_all
-# puts "Destorying Brands"
-# Brand.destroy_all
-#---------------------NEVER DELETE STORES --ABSOLUTE PAIN TO SEED ------------------------------------------------
-
-# Examples:
-# csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
-brands = ["BWS", "Liqourland", "Dan Murphy's", "First Choice"]
-# csv_text = File.read(Rails.root.join('lib', 'seeds', 'drinks.csv'))
-# csv = CSV.parse(csv_text, csv_options)
-puts "Making Users"
-10.times do
-  User.create(username: Faker::Internet.username,password: 'password', email: Faker::Internet.email)
-  puts "#{User.last.email}"
-end
+bws_cider_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fcider&banner=true&bannerSlotIds=Category_Desktop&department=beer&isRequestAds=false&maxNumberOfAds=4&pageNumber=1&pageSize=999&pageType=Category&sortType=Browse_Relevance_LocalSales&subDepartment=cider"
+bws_paleale_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fbeer-style%2Fpale-ale&banner=true&bannerSlotIds=Category_Desktop&category=pale+ale&department=beer&isRequestAds=false&maxNumberOfAds=4&pageNumber=1&pageSize=200&pageType=Category&sortType=Browse_Relevance_LocalSales&subDepartment=beer+style"
+bws_ipa_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fbeer-style%2Findian-pale-ale&banner=true&bannerSlotIds=Category_Desktop&category=indian+pale+ale&department=beer&isRequestAds=false&maxNumberOfAds=4&pageNumber=1&pageSize=100&pageType=Category&sortType=Browse_Relevance_LocalSales&subDepartment=beer+style"
+bws_lager_url = "https://api.bws.com.au/apis/ui/Browse?Location=%2Fbeer%2Fbeer-style%2Flager&banner=true&bannerSlotIds=Category_Desktop&category=lager&department=beer&isRequestAds=false&maxNumberOfAds=4&pageNumber=1&pageSize=999&pageType=Category&sortType=Browse_Relevance_LocalSales&subDepartment=beer+style"
+bws_url = [bws_lager_url, bws_ipa_url, bws_paleale_url, bws_cider_url]
 file_paleale = File.read(Rails.root.join('lib', 'seeds', 'bws-pale-ale.json'))
 file_lager = File.read(Rails.root.join('lib', 'seeds', 'bws-lager.json'))
 file_ipa = File.read(Rails.root.join('lib', 'seeds', 'bws-ipa.json'))
@@ -96,42 +64,4 @@ bws_jsons.each_with_index do |url, index|
     end
   end
 end
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-# puts "Making Brands"
-# Brand.create(name: "BWS" ,logo: "")
-# Brand.create(name: "Liqourland" ,logo: "")
-# Brand.create(name: "Dan Murphy's" ,logo: "")
-# Brand.create(name: "First Choice" ,logo: "")
-
-# 10.times do
-#   new_store = Store.new(latitude: rand(-37.84578..-37.77509) ,longitude: rand(144.97737..145.03860), brand_id: Brand.find_by(name: brands.sample).id)
-#   # new_store.brand_id = Brand.find_by(name: brands.sample).id
-#   new_store.name = "#{Faker::Company.name}'s #{Brand.find(new_store.brand_id).name}"
-#   new_store.save
-# end
-
-# # 24 pack beers
-# csv.each do |row|
-#   Drink.create(name: row['Name'], category: row['Category'],volume: row['Volume'],abv: row['ABV'])
-#   Product.create(drink_id: Drink.last.id ,size: 24)
-#   recent_shops = []
-#   10.times do
-#     Inventory.create(price: rand(40.00..65.00) ,store_id: ((Store.first.id..Store.last.id).reject { |i| recent_shops.include?(i) }).sample )
-#     InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-#     puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
-#     recent_shops << Inventory.last.store_id
-#   end
-#   Product.create(drink_id: Drink.last.id ,size: 6)
-#   recent_shops = []
-#   10.times do
-#     Inventory.create(price: rand(18.00..26.00) ,store_id: ((Store.first.id..Store.last.id).reject { |i| recent_shops.include?(i) }).sample )
-#     InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-#     puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
-#     recent_shops << Inventory.last.store_id
-#   end
-# end
-
-
-
 

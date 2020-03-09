@@ -1,9 +1,23 @@
+
+  <div>
+    <%= simple_form_for :filters, url: results_path, method: :get do |f| %>
+    <% the_params = params[:filters] || params[:results] %>
+      <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
+      <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
+      <%= f.input :size, :as => :hidden, :input_html => { :value => the_params[:size] } %>
+      <%= f.collection_radio_buttons :options, [['Distance in meters', 'meter'], ['Time in minutes', 'min']], :last, :first %>
+      <%= f.input :amount, as: :integer, label: false %>
+      <%= f.button :submit, value: 'Go', "data-disable-with" => "Filtering Best Beers for You..." %>
+    <% end %>
+    </div>
+
 <div
   id="map"
   style="width: 100%;
   height: 340px;"
   data-markers="<%= @markers.to_json %>"
-  data-center="<%= Geocoder.search(params[:results][:location]).first.coordinates %>"
+  <% the_params = params[:filters] || params[:results] %>
+  data-center="<%= Geocoder.search(the_params[:location]).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
 >
 </div>
@@ -18,8 +32,9 @@
             <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
             <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
             <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %>.  |   <%= x.first.product.drink.abv %>%</p>
+            <%= link_to "Let's get there", "https://www.google.com/maps/dir/#{the_params[:location]}/#{x.first.inventory.store.address}" %>
             <div class="product-card-footer">
-              <div class="product-card-distance"><%= (((590.4761905/5)*x.first.inventory.price_cents.to_f/100)/(x.last)).round %>m</div>
+            <div class="product-card-distance"></div>
             </div>
           </div>
         </div>
@@ -28,17 +43,3 @@
   </div>
   <div class="swiper-pagination"></div>
 </div>
-
-
-
-<!-- <div>
-  <% @final_results.first(5).each do |x| %>
-  <div class="card">
-    <h1><%= x.first.product.drink.name %></h1>
-    <h3><%= x.first.product.drink.abv %>%</h3>
-    <h3>$<%= x.first.inventory.price_cents.to_f/100 %></h3>
-    <h3><%= x.first.inventory.store.name %></h3>
-    <h3><%= (((590.4761905/5)*x.first.inventory.price_cents.to_f/100)/(x.last)).round %>m</h3>
-  </div>
-  <% end %>
-</div> -->
