@@ -8,15 +8,15 @@ class SearchController < ApplicationController
     the_params = params[:filters] || params[:results]
     the_params[:category] = the_params[:category].split(' ') if params[:filters]
     if the_params[:size] == "pack"
-      size = [4, 6, 10]
+      size = [4, 6]
     elsif the_params[:size] == "case"
-      size = [24, 30, 12]
+      size = [24, 30]
     elsif the_params[:size] == "single"
       size = [1]
     else
       size = [0]
     end
-    stores = Store.all.near(the_params[:location], 3)
+    stores = Store.all.near(the_params[:location], 1.2)
     store_ids = stores.collect(&:id)
     results = InventoryProduct.joins(:product)
                               .joins(product: :drink)
@@ -33,9 +33,9 @@ class SearchController < ApplicationController
     @current_location = Geocoder.search(the_params[:location]).first.coordinates
     results.each do |result|
       if stores.include?(result.inventory.store)
-        price = result.inventory.price_cents.to_f / 100
+        price = (result.inventory.price_cents.to_f / 100) / (result.product.size)
         distance = Store.find(result.inventory.store_id).distance_to(@current_location) * 1000
-        ranked_value = ((590.4761905 / 5) * price) / distance
+        ranked_value = (price * (118/6)) / (distance)
         final_results[result] = ranked_value
       end
     end
