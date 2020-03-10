@@ -175,7 +175,10 @@ bws_jsons.each_with_index do |url, index|
       if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webpacktype" }]["Value"] == "Case" && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "productunitquantity" }]["Value"] == "1"
         size = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "displayunitquantity" }]["Value"].to_i
       end
-      if @created == "true"
+      if size <= 3
+        next
+      end
+      if @created == "true" && size > 3 && x["Price"] > 12
         Product.create(drink_id: Drink.last.id, size: size)
         stores = Store.where(brand_id: Brand.find_by(name: 'BWS')).ids
         stores.each do |id|
@@ -245,11 +248,8 @@ dan_jsons.each_with_index do |url, index|
       else
         size = 1
       end
-      if size == 1
-        next
-      end
       # if Drink.find_by(product_number: #value ).nil? -> then add new product / otherwise update
-      if @created == "true"
+      if @created == "true" && x.last["Value"] > 12 && size > 3
         puts "Making Products"
         Product.create(drink_id: Drink.last.id, size: size)
         stores = Store.where(brand_id: Brand.find_by(name: "Dan Murphy's")).ids

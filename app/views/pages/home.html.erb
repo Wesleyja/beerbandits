@@ -1,16 +1,12 @@
-<div class="container home-container">
+<div class="home-container">
+	<div class="banner">
 	<div class="home-buttons-container">
-		<div>
 			<%= link_to 'Find Beers', preferences_path, class: "btn btn-primary" %>
-		</div>
 		<% if user_signed_in? %>
-			<div>
 				<%= link_to 'Favourites', favourites_path, class: "btn btn-primary" %>
-			</div>
 		<% else %>
-			<div>
 				<%= link_to 'Login', new_user_session_path, class: "btn btn-primary" %>
-			</div>
 		<% end %>
+	</div>
 	</div>
 </div>
