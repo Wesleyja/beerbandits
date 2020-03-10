@@ -14,7 +14,7 @@ class SearchController < ApplicationController
     else
       size = [0]
     end
-    stores = Store.all.near(the_params[:location], 1.2)
+    stores = Store.all.near(the_params[:location], 2)
     store_ids = stores.collect(&:id)
     results = InventoryProduct.joins(:product)
                               .joins(product: :drink)
@@ -30,14 +30,15 @@ class SearchController < ApplicationController
     final_results = {}
     @current_location = Geocoder.search(the_params[:location]).first.coordinates
     results.each do |result|
-      if stores.include?(result.inventory.store)
-        price = (result.inventory.price_cents.to_f / 100) / (result.product.size)
+      if stores.collect { |x| x.id }.include?(result.inventory.store_id)
+        price = (result.inventory.price_cents.to_f / 100)
         distance = Store.find(result.inventory.store_id).distance_to(@current_location) * 1000
-        ranked_value = (price * (118/6)) / (distance)
+        ranked_value = (distance / 118) + (price)
         final_results[result] = ranked_value
       end
     end
-    @final_results = final_results.sort_by { |_k, v| v }
+
+    @final_results = final_results.sort {|a,b| a[1]<=>b[1]}
     if the_params[:options].class == String
       @final_results = new_distance_param(the_params[:options], the_params[:amount].to_i)
     end
@@ -51,6 +52,7 @@ class SearchController < ApplicationController
   private
 
   def new_distance_param(type, value)
+    raise
     @new_value = value
     @new_value = (500 / 6) * value if type == "min"
     new_results_hash = {}
