@@ -47,6 +47,7 @@ class SearchController < ApplicationController
       @final_results = new_filter_param(the_params[:distancetype], the_params[:amount].gsub(/\D/, "").to_i)
     end
     @markers = find_stores(stores)
+    # raise
   end
 
   def favourites

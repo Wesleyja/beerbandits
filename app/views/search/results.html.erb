@@ -32,7 +32,20 @@
       <% @final_results.first(10).each do |x| %>
         <div class="swiper-slide">
           <div class="product-card card">
-            <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+            <button 
+            type="button" 
+            class="js-drink-carousel-item" 
+            data-toggle="modal" 
+            data-target="#exampleModalCenter" data-drink-name="<%= x.first.product.drink.name %>"
+            data-drink-store="<%= x.first.inventory.store.name %>"
+            data-drink-price="<%= x.first.inventory.price_cents.to_f/100 %>"
+            data-drink-abv="<%= x.first.product.drink.abv %>"
+            >
+            <div class="product-card-price">
+              <p class="product-card-price-text">
+                $<%= x.first.inventory.price_cents.to_f/100 %> 
+              </p>
+            </div>
             <div class="product-card-details">
               <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
               <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
@@ -53,14 +66,15 @@
 
 
 
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade js-drink-modal" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content product-card-modal card">
       <div class="modal-body">
         <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image-modal card-img-top" alt="beer-image"/>
-          <h2 class="product-card-brand-modal">James Squire</h2>
-          <h3 class="product-card-name-modal">One Fifty Lashes Pale Ale</h3>
-          <p class="product-card-price-modal">$30</p>
+          <h2 class="product-card-brand-modal js-drink-store"></h2>
+          <h3 class="product-card-name-modal js-drink-name"></h3>
+          <p class="product-card-price-modal js-drink-price"></p>
+          <p class="js-drink-abv"></p>
           <div class="product-card-footer-modal">
             <div class="product-card-distance-modal">20km</div>
           </div>

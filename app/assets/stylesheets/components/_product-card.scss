@@ -1,6 +1,6 @@
 .product-card {
   height: 210px;
-  padding: 12px;
+  padding: 0px 12px 12px 12px;
   border-radius: 16px;
 	.product-card-image {
 		height: 128px;
@@ -20,8 +20,16 @@
 		font-size: 15px;
 	}
 	.product-card-price {
-		font-size: 15px;
-		color: #616161;
+		background-image: url(price-tag.png);
+		background-repeat: no-repeat;
+  	background-size: contain;
+  	background-position: center;
+  	height: 100px;
+	}
+	.product-card-price-text {
+		padding-top: 55px;
+    font-size: 19px;
+    font-weight: 500;
 	}
 	.product-card-footer {
 		display: flex;
