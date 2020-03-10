@@ -29,11 +29,25 @@
 #store-location {
   border-radius: 24px;
   padding: 24px 16px;
-  width: 280px;
+  width: 100%;
 }
 .multistep-form-question {
+  width: 260px;
+  height: 220px;
   background: white;
   border-radius: 15px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-  margin: 30px 0;
+  margin: 30px auto;
+}
+.multistep-form-question-location {
+  // width: 260px;
+  // height: 220px; 
+  margin: 30px auto; 
+}
+.location-question-header {
+  text-align: center;
+}
+.multistep-headers {
+  font-size: 26px;
+  text-align: center;
 }

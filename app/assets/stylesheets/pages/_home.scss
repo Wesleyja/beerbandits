@@ -2,16 +2,41 @@
 body {
   background-color: white;
 }
+// .home-container {
+// 	text-align: center;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   .home-buttons-container {
+//   	height: 20%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+//   }
+// }
+
+.banner {
+  background-image: url('https://cdn.dribbble.com/users/2054184/screenshots/5265935/dribbble_beer-flask.gif');
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: -210px -142px;
+}
+
 .home-container {
-	text-align: center;
-  height: 100vh;
+  width: 100vw;
+  height: calc(100vh - 62.92px);
+  background-color: #ffbf00;
+}
+
+.home-buttons-container {
   display: flex;
+  flex-direction: column;
+  height: 25%;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  .home-buttons-container {
-  	height: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  right: 0;
 }
