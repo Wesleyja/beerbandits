@@ -24,7 +24,7 @@
   <div class="swiper-container">
     <div class="swiper-wrapper">
 
-      <% @final_results.first(5).each do |x| %>
+      <% @final_results.first(10).each do |x| %>
         <div class="swiper-slide">
           <div class="product-card card">
             <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
@@ -75,3 +75,10 @@
 <p>Store < x.first.inventory.store.name %></p>
 <p>Price < x.first.inventory.price_cents.to_f/100 %></p>
 <p>ABV < x.first.product.drink.abv %></p> -->
+
+<!--
+Cost Per Standard Drink <p>$<%= ((x.first.inventory.price_cents.to_f/100).to_f / ((x.first.product.size) * (x.first.product.drink.standard_drink))).round(2) %> per Standard</p>
+Size of Product (24/6 pack) <p><%= x.first.product.size %> pack</p>
+Distance calculation <% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %>
+Distance to location and time talking <p><%= distance %>m or Approx <%= (distance / (500 / 6)) %> minutes walking</p>
+ -->
