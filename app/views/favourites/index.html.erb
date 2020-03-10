@@ -1,3 +1,33 @@
-<% @searches.each do |search| %>
-<%= search.source_data %>
-<% end %>
+<div class="favourited-searches">
+  <% @searches.reverse_each do |search| %>
+    <div>
+      <%if search.favourited %>
+        <h6><%= search.name  %></h3>
+        <%= simple_form_for search, url: favourites_edit_path(search), method: :get, remote: true do |f| %>
+        <%= f.input :name %>
+        <%= f.button :submit, value: 'Save' %>
+        <% end %>
+        <p><%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']}."  %></p>
+        
+        <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
+          <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
+          <%= f.input :location, :as => :hidden, :input_html => { :value => search.source_data['location'] } %>
+          <%= f.input :size, :as => :hidden, :input_html => { :value => search.source_data['size'] } %>
+          <%= f.button :submit, value: 'Take me there again!', "data-disable-with" => "Finding Best Beers for You... AGAIN!" %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<hr>
+
+<div class="all-searches">
+  <% @searches.reverse_each do |search| %>
+    <div>
+      <% unless search.favourited %>
+        <p><%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']} - Search on #{search.created_at.to_date}" %></p>
+
+      <% end %> 
+    </div>
+  <% end %>
+</div>

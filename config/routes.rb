@@ -9,4 +9,6 @@ Rails.application.routes.draw do
   get 'favourites', to: 'favourites#index', as: :favourites
   
   get 'style-guide', to: 'pages#style_guide'
+
+  patch 'favourites/:id', to: 'favourites#update', as: :favourites_edit
 end

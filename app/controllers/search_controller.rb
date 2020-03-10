@@ -5,10 +5,11 @@ class SearchController < ApplicationController
   end
 
   def results
-    Search.create(user: current_user, source_data: params[:results], favorited: false) if params[:results] && current_user
+    Search.create(user: current_user, source_data: params[:results], favourited: false) if params[:results] && current_user
 
-    the_params = params[:filters] || params[:results]
+    the_params = params[:filters] || params[:results] || params[:favourited]
     the_params[:category] = the_params[:category].split(' ') if params[:filters]
+    the_params[:category] = (the_params[:category].split(' ') | ['Pale', 'Ale', 'Pale Ale']) - (the_params[:category].split(' ') & ['Pale', 'Ale', 'Pale Ale']) if params[:favourited]
     if the_params[:size] == "pack"
       size = [4, 6]
     elsif the_params[:size] == "case"
