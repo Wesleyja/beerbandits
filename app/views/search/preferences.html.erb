@@ -25,19 +25,22 @@
         </div>
       </div>
 
+
       <div class="multistep-form-step js-multistep-form-step">
         <div class="radio-container">
           <h2 class="radio-header">Plans for tonight?</h2>
-          <div class="radio-options">
-            <%= f.collection_radio_buttons(:size, [['single', 'Single'], ['pack', '4 or 6 Pack'], ['case', 'Case']], :first, :last, include_hidden: false) do |a| %>
-              <%= a.radio_button class: 'radio-input' %>
-              <%= a.label class: 'radio-label' %>
+          <div class="beer-size-options multistep-form-question">
+            <%= f.collection_radio_buttons(:size, [['pack', 'Quiet one'], ['case', 'Big night']], :first, :last, include_hidden: false) do |a| %>
+              <%= a.radio_button class: 'beer-size-input' %>
+              <% if a.value == 'case' %>
+                <%= render "shared/beer-pack" %>
+                <%= render "shared/beer-pack" %>
+                <%= render "shared/beer-pack" %>
+              <% else %>
+                <%= render "shared/beer-pack" %>
+              <% end %>
+              <%= a.label class: 'beer-size-label' %>
             <% end %>
-          </div>
-          <div class="radio-text">
-            <p class="radio-text-1">Quiet<br>one</p>
-            <p class="radio-text-2">Big<br>night</p>
-            <p class="radio-text-3">No<br>comment...</p>
           </div>
           <div class="d-flex justify-content-center">
             <button type="button" class="btn btn-primary js-multistep-form-step-previous-btn">
@@ -47,6 +50,7 @@
               Next
             </button>
           </div>
+          
         </div>
       </div>
 
@@ -65,6 +69,5 @@
 
   
     </div>
-
 
 </div>

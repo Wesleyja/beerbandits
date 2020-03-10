@@ -45,6 +45,7 @@ class SearchController < ApplicationController
     end
 
     @markers = find_stores(stores)
+    # raise
   end
 
   def favourites
