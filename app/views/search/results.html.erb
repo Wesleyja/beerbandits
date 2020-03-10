@@ -22,7 +22,7 @@
   position: relative;"
   data-markers="<%= @markers.to_json %>"
   <% the_params = params[:filters] || params[:results] %>
-  data-center="<%= Geocoder.search(the_params[:location]).first.coordinates %>"
+  data-center="<%= Geocoder.search(the_params[:location].gsub("Greater ", "")).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   >
   <div class="swiper-container">

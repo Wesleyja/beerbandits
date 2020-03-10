@@ -14,11 +14,12 @@ class SearchController < ApplicationController
     else
       size = [0]
     end
+    location = the_params[:location].gsub("Greater ", "")
     if !the_params[:sizetype].nil?
       new_size = the_params[:sizetype].split
       size = new_size.collect { |x| x.to_i }
     end
-    stores = Store.all.near(the_params[:location], 2)
+    stores = Store.all.near(location, 2)
     store_ids = stores.collect(&:id)
     results = InventoryProduct.joins(:product)
                               .joins(product: :drink)
@@ -32,7 +33,7 @@ class SearchController < ApplicationController
     #   &&  the_params[:category].include?(inventory_product.product.drink.category)
     # end
     final_results = {}
-    @current_location = Geocoder.search(the_params[:location]).first.coordinates
+    @current_location = Geocoder.search(location).first.coordinates
     results.each do |result|
       if stores.collect { |x| x.id }.include?(result.inventory.store_id)
         price = (result.inventory.price_cents.to_f / 100)
