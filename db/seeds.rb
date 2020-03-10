@@ -8,7 +8,7 @@ require 'uri'
 require 'net/http'
 require "base64"
 
-# require 'byebug'
+# # require 'byebug'
 categories = ["Lager", "IPA", "Pale Ale", "Cider"]
 puts "Destorying Users"
 User.destroy_all
@@ -22,15 +22,20 @@ Inventory.destroy_all
 puts "Destorying Drinks"
 Drink.destroy_all
 #---------------------NEVER DELETE STORES --ABSOLUTE PAIN TO SEED ------------------------------------------------
-# puts "Destorying Stores"
-# Store.destroy_all
-# puts "Destorying Brands"
-# Brand.destroy_all
+puts "Destorying Stores"
+Store.destroy_all
+puts "Destorying Brands"
+Brand.destroy_all
 #---------------------NEVER DELETE STORES --ABSOLUTE PAIN TO SEED ------------------------------------------------
-
+start_time = Time.now
 # Examples:
 # csv_options = { col_sep: ',', quote_char: '"', headers: :first_row }
 brands = ["BWS", "Liqourland", "Dan Murphy's", "First Choice"]
+puts "Making Brands"
+Brand.create(name: "BWS" ,logo: "")
+Brand.create(name: "Liqourland" ,logo: "")
+Brand.create(name: "Dan Murphy's" ,logo: "")
+Brand.create(name: "First Choice" ,logo: "")
 # csv_text = File.read(Rails.root.join('lib', 'seeds', 'drinks.csv'))
 # csv = CSV.parse(csv_text, csv_options)
 puts "Making Users"
@@ -38,6 +43,85 @@ puts "Making Users"
   User.create(username: Faker::Internet.username,password: 'password', email: Faker::Internet.email)
   puts "#{User.last.email}"
 end
+# --------------------- LOCATIONS ---------------------------------
+postcodes = ["3121", "3141", "3142", "3122", "3101", "3068", "3066", "3067", "3002" ]
+file = File.read(Rails.root.join('lib', 'seeds', 'll-locations.json'))
+data_hash = JSON.parse(file)
+data_hash.each do |store|
+  if Store.find_by(latitude: store["latitude"].to_f).nil? && postcodes.include?(store["postcode"])
+    Store.create(latitude: store["latitude"].to_f,longitude: store["longitude"].to_f, brand_id: Brand.find_by(name: "Liqourland").id, name: "Liqourland #{store["storeName"]}" )
+    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
+  end
+end
+file = File.read(Rails.root.join('lib', 'seeds', 'fc-locations.json'))
+data_hash = JSON.parse(file)
+data_hash.each do |store|
+  if Store.find_by(latitude: store["latitude"].to_f).nil? && postcodes.include?(store["postcode"])
+    Store.create(latitude: store["latitude"].to_f,longitude: store["longitude"].to_f, brand_id: Brand.find_by(name: "First Choice").id, name: "First Choice #{store["storeName"]}" )
+    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
+    postcodes << store["postcode"]
+  end
+end
+file = File.read(Rails.root.join('lib', 'seeds', 'bws-locations.json'))
+data_hash = JSON.parse(file)
+data_hash["Stores"].each do |store|
+  if postcodes.include?(store["Postcode"])
+    store_name = store["Name"]
+    Store.create(latitude: store["Latitude"].to_f,longitude: store["Longitude"].to_f, brand_id: Brand.find_by(name: "BWS").id, name: "BWS #{store_name}" )
+    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
+  end
+end
+file = File.read(Rails.root.join('lib', 'seeds', 'danmurphys-location.json'))
+data_hash = JSON.parse(file)
+data_hash["Stores"].each do |store|
+  if postcodes.include?(store["Postcode"])
+    store_name = store["Name"]
+    Store.create(latitude: store["Latitude"].to_f,longitude: store["Longitude"].to_f, brand_id: Brand.find_by(name: "Dan Murphy's").id, name: "Dan Murphy's #{store_name}" )
+    puts "#{Store.last.name} created at Latitude: #{Store.last.latitude}, Longitude: #{Store.last.longitude}"
+  end
+end
+# -------------------------- LiqourLand --------------------------------
+csv_options = { col_sep: ',', headers: :first_row }
+csv_ll = File.read(Rails.root.join('lib', 'seeds', 'll-drinks.csv'))
+csv = CSV.parse(csv_ll, csv_options)
+csv.each do |row|
+  Drink.create(
+    name: row['Name'],
+    category: row['Category'],
+    volume: row['volume'],
+    abv: row['abv'],
+    brand: row['brand']
+    )
+  Product.create(drink_id: Drink.last.id, size: row['size'])
+  stores = Store.where(brand_id: Brand.find_by(name: "Liqourland")).ids
+  stores.each do |id|
+    Inventory.create(price: row['price'], store_id: id)
+    InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
+    puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+  end
+end
+# -----------------------------------------------------------------------
+# -------------------------- First Choice --------------------------------
+csv_options = { col_sep: ',', headers: :first_row }
+csv_fc = File.read(Rails.root.join('lib', 'seeds', 'fc-drinks.csv'))
+csv = CSV.parse(csv_fc, csv_options)
+csv.each do |row|
+  Drink.create(
+    name: row['Name'],
+    category: row['Category'],
+    volume: row['volume'],
+    abv: row['abv'],
+    brand: row['brand']
+    )
+  Product.create(drink_id: Drink.last.id, size: row['size'])
+  stores = Store.where(brand_id: Brand.find_by(name: "First Choice")).ids
+  stores.each do |id|
+    Inventory.create(price: row['price'], store_id: id)
+    InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
+    puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+  end
+end
+# --------------------------------------BWS---------------------------------
 file_paleale = File.read(Rails.root.join('lib', 'seeds', 'bws-pale-ale.json'))
 file_lager = File.read(Rails.root.join('lib', 'seeds', 'bws-lager.json'))
 file_ipa = File.read(Rails.root.join('lib', 'seeds', 'bws-ipa.json'))
@@ -49,28 +133,33 @@ bws_jsons.each_with_index do |url, index|
   data_hash["Bundles"].each do |beer|
     beer["Products"].each do |x|
     # if the value is true, then its the hash with the single unit bottle, which has the % and Brand and Volume
+    @created = "false"
       if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "productunitquantity" }]["Value"] == "1"
         if x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorsize" }.nil?
           volume = x["PackageSize"].gsub(/\D/, "").to_i || 0
         else
-          volume = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorsize" }]["Value"].gsub(/\D/, "").to_i
+          volume = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorsize" }]["Value"].gsub(/\D/, "").to_i || 0
         end
         if x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }.nil?
           abv = 0
-        elsif x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }]["Value"].gsub(/\D$/, "").to_f > 12.0
-          x["AdditionalDetails"].find_index { |i| i["Name"] == "standarddrinks" }
+        elsif x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }]["Value"].gsub(/\D$/, "").to_f > 22.0
+          abv = 0
         else
-          abv = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }]["Value"].gsub(/\D$/, "").to_f
+          abv = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "alcohol%" }]["Value"].gsub(/\D$/, "").to_f || 0
         end
-        Drink.create(
-        name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "product_short_name" }]["Value"],
-        category: "#{categories[index]}",
-        volume: volume,
-        abv: abv
-        )
-        puts "Drink = #{Drink.last.name}"
-        # Category = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorstyle" }]["Value"]
-        # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+        if volume > 100 && abv > 3 && x["Price"] > 3 && volume < 400 && x["Price"] < 90
+          @created = "true"
+          Drink.create(
+          name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "product_short_name" }]["Value"],
+          category: "#{categories[index]}",
+          volume: volume,
+          abv: abv,
+          brand: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+          )
+          puts "Drink = #{Drink.last.name}"
+          # Category = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorstyle" }]["Value"]
+          # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+        end
       end
     end
 
@@ -86,16 +175,99 @@ bws_jsons.each_with_index do |url, index|
       if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webpacktype" }]["Value"] == "Case" && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "productunitquantity" }]["Value"] == "1"
         size = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "displayunitquantity" }]["Value"].to_i
       end
-      Product.create(drink_id: Drink.last.id, size: size)
-      stores = Store.where(brand_id: Brand.find_by(name: 'BWS')).ids
-      stores.each do |id|
-        Inventory.create(price: x["Price"], store_id: id)
-        InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
-        puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+      if size <= 3
+        next
+      end
+      if @created == "true" && size > 3 && x["Price"] > 12
+        Product.create(drink_id: Drink.last.id, size: size)
+        stores = Store.where(brand_id: Brand.find_by(name: 'BWS')).ids
+        stores.each do |id|
+          Inventory.create(price: x["Price"], store_id: id)
+          InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
+          puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+        end
       end
     end
   end
 end
+# -----------------------------------------------------------------------
+# -------------------------- Dan Murphy's --------------------------------
+file_paleale = File.read(Rails.root.join('lib', 'seeds', 'dan-paleale.json'))
+file_lager = File.read(Rails.root.join('lib', 'seeds', 'dan-lager.json'))
+file_ipa = File.read(Rails.root.join('lib', 'seeds', 'dan-ipa.json'))
+file_cider = File.read(Rails.root.join('lib', 'seeds', 'dan-cider.json'))
+dan_jsons = [file_lager, file_ipa, file_paleale, file_cider]
+categories = ["Lager", "IPA", "Pale Ale", "Cider"]
+dan_jsons.each_with_index do |url, index|
+  data_hash = JSON.parse(url)
+  data_hash["Bundles"].each do |beer|
+    @created = "false"
+    if beer["Products"].empty? || beer["Products"].nil?
+      next
+    end
+    # byebug
+    beer["Products"].each do |x|
+      if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].nil? || x["PackageSize"].nil? || x["PackageSize"].empty?
+        next
+      end
+      # if the value is true, then its the hash with the single unit bottle, which has the % and Brand and Volume
+      if x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f < 20 && x["PackageSize"].gsub(/\D/, "").to_i > 100 && x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f > 3 && x["Prices"].values.collect { |x| x["Value"] }.include?(0) == false && x["Prices"].values.collect { |x| x["Value"] }.any?{|x| x >= 90 } == false
+        @created = "true"
+        Drink.create(
+        name: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "producttitle" }]["Value"],
+        category: "#{categories[index]}",
+        volume: x["PackageSize"].gsub(/\D/, "").to_i,
+        abv: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webalcoholpercentage" }]["Value"].gsub("%", "").to_f,
+        brand: x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "webbrandname" }]["Value"]
+        )
+        puts "Drink = #{Drink.last.name}"
+      end
+        # Category = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "liquorstyle" }]["Value"]
+        # Brand = x["AdditionalDetails"][x["AdditionalDetails"].find_index { |i| i["Name"] == "brand_name" }]["Value"]
+      rescue
+        next
+    end
+    beer["Products"].first["Prices"].each do |x|
+      if x.last.first.last.nil? || x.last.first.last.empty? || x.first == "promoprice"
+        next
+      end
+      if x.last.first.last.include?("24")
+        size = 24
+      elsif x.last.first.last.include?("30")
+        size = 30
+      elsif x.last.first.last.include?("10")
+        size = 10
+      elsif x.last.first.last.include?("12")
+        size = 12
+      elsif x.last.first.last.include?("16")
+        size = 16
+      elsif x.last.first.last.include?("4")
+        size = 4
+      elsif x.last.first.last.include?("6")
+        size = 6
+      else
+        size = 1
+      end
+      # if Drink.find_by(product_number: #value ).nil? -> then add new product / otherwise update
+      if @created == "true" && x.last["Value"] > 12 && size > 3
+        puts "Making Products"
+        Product.create(drink_id: Drink.last.id, size: size)
+        stores = Store.where(brand_id: Brand.find_by(name: "Dan Murphy's")).ids
+        stores.each do |id|
+          Inventory.create(price: x.last["Value"], store_id: id)
+          InventoryProduct.create(inventory_id: Inventory.last.id, product_id: Product.last.id)
+          puts "#{Product.last.size} pack of #{Drink.last.name} for $#{(Inventory.last.price)} at #{Store.find( Inventory.last.store_id).name}"
+        end
+      end
+    end
+  end
+end
+# -----------------------------------------------------------------------
+end_time = Time.now
+total_time = end_time - start_time
+puts total_time
+
+
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 # puts "Making Brands"
