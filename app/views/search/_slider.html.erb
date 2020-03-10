@@ -3,7 +3,20 @@
   <% @final_results.first(10).each do |x| %>
     <div class="swiper-slide">
       <div class="product-card card">
-        <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <button
+        type="button"
+        class="js-drink-carousel-item"
+        data-toggle="modal"
+        data-target="#exampleModalCenter" data-drink-name="<%= x.first.product.drink.name %>"
+        data-drink-store="<%= x.first.inventory.store.name %>"
+        data-drink-price="<%= x.first.inventory.price_cents.to_f/100 %>"
+        data-drink-abv="<%= x.first.product.drink.abv %>"
+        >
+        <div class="product-card-price">
+          <p class="product-card-price-text">
+            $<%= x.first.inventory.price_cents.to_f/100 %>
+          </p>
+        </div>
         <div class="product-card-details">
           <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
           <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
@@ -18,4 +31,3 @@
 
 </div>
 <div class="swiper-pagination"></div>
-
