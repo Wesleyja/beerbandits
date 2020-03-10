@@ -1,0 +1,21 @@
+<div class="swiper-wrapper" id="ajax-slider">
+
+  <% @final_results.first(10).each do |x| %>
+    <div class="swiper-slide">
+      <div class="product-card card">
+        <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <div class="product-card-details">
+          <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
+          <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
+          <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %>.  |   <%= x.first.product.drink.abv %>%</p>
+          <%= link_to "Let's get there", "https://www.google.com/maps/dir/#{@current_location.join(",")}/#{x.first.inventory.store.latitude},#{x.first.inventory.store.longitude}"%>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  </button>
+
+</div>
+<div class="swiper-pagination"></div>
+

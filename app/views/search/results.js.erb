@@ -1,0 +1,6 @@
+function addBeers(sliderHTML) {
+  const beers = document.getElementById('ajax-slider');
+  beers.innerHTML = sliderHTML;
+}
+
+addBeers('<%= j render "search/slider" %>');

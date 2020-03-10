@@ -1,5 +1,5 @@
 <div>
-  <%= simple_form_for :filters, url: results_path, method: :get do |f| %>
+  <%= simple_form_for :filters, remote: true, url: results_path, method: :get do |f| %>
   <% the_params = params[:filters] || params[:results] %>
     <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
     <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
@@ -22,11 +22,11 @@
   position: relative;"
   data-markers="<%= @markers.to_json %>"
   <% the_params = params[:filters] || params[:results] %>
-  data-center="<%= Geocoder.search(the_params[:location]).first.coordinates %>"
+  data-center="<%= Geocoder.search(the_params[:location].gsub("Greater ", "")).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   >
-
   <div class="swiper-container">
+<!--     <%= render 'search/slider' %> -->
     <div class="swiper-wrapper">
 
       <% @final_results.first(10).each do |x| %>
@@ -61,7 +61,6 @@
     </div>
     <div class="swiper-pagination"></div>
   </div>
-
 </div>
 
 
