@@ -11,8 +11,6 @@ class SearchController < ApplicationController
       size = [4, 6]
     elsif the_params[:size] == "case"
       size = [24, 30]
-    elsif the_params[:size] == "single"
-      size = [1]
     else
       size = [0]
     end
@@ -48,7 +46,7 @@ class SearchController < ApplicationController
   end
 
   def favourites
-  end 
+  end
 
   private
 
