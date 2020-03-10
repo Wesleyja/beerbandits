@@ -6,7 +6,6 @@ class FavouritesController < ApplicationController
   end
 
   def update
-    raise
     search = Search.find(params[:search_id])
     search.update(name: params[:name])
   end
