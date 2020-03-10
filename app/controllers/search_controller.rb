@@ -5,6 +5,8 @@ class SearchController < ApplicationController
   end
 
   def results
+    Search.create(user: current_user, source_data: params[:results], favorited: false) if params[:results] && current_user
+
     the_params = params[:filters] || params[:results]
     the_params[:category] = the_params[:category].split(' ') if params[:filters]
     if the_params[:size] == "pack"
@@ -43,12 +45,9 @@ class SearchController < ApplicationController
     if the_params[:options].class == String
       @final_results = new_distance_param(the_params[:options], the_params[:amount].to_i)
     end
-
+    # raise
     @markers = find_stores(stores)
   end
-
-  def favourites
-  end 
 
   private
 
@@ -70,7 +69,6 @@ class SearchController < ApplicationController
       result[1] = result[1] / (result[0].product.drink.standard_drink)
     end
   end
-
 
   def find_stores(stores)
     @markers = stores.map do |store|
