@@ -1,78 +1,65 @@
-.radio-container {
+$beer-color: #FEB300;
+$beer-empty-color: #F3E4C0;
+$option-height: 40px;
+
+.beer-size-options {
+  height: 220px;
+  position: relative;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 325px;
-  .radio-header {
-    margin-bottom: 16px;
+
+  > :nth-child(1) {
+    .beer-bottle-top {
+      background: $beer-color;
+    }
+    .beer-bottle-base {
+      background: $beer-color;
+    }
+    .beer-bottle-lid {
+      background: $beer-color;
+    }
+    .beer-size-label {
+      bottom: $option-height;
+    }
   }
-}
 
-.radio-options {
-	display: flex;
-  text-align: center;
-  height: 100%;
-  width: 275px;
-  justify-content: space-between;
-  padding: 18px 0px;
-}
-
-.simple_form label[for='results_size_single'] {
-  height: 100px;
-  width: 100%;
-  margin-bottom: 0px;
-	background-image: url('single-beer.png');
-	background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  color: transparent;	
-}
-
-.simple_form label[for='results_size_pack'] {
-  height: 96px;
-  width: 100%;
-  margin-bottom: 0px;
-	background-image: url('pack-beer.png');
-	background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  color: transparent;	
-}
-
-.simple_form label[for='results_size_case'] {
-  height: 102px;
-  width: 115px;
-  margin-bottom: 0px;
-	background-image: url('case-beer.png');
-	background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-  color: transparent;	
-}
-
-.radio-input {
-	position: absolute;
-	opacity: 0;
-}
-
-.radio-input:checked ~ .radio-label {
-  transform: scale(1.2);
-  z-index: 1;
-}
-
-.radio-text {
-	display: flex;
-  justify-content: space-between;
-  padding: 14px 0px;
-  text-align: center;
-  font-size: 17px;
-  .radio-text-1 {
-    width: 39px;
+  > :nth-child(2) label {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
   }
-  .radio-text-2 {
-		width: 72px;
+
+  .beer-size-input {
+    height: 0;
+    width: 0;
+    position: absolute;
+    opacity: 0;
   }
-  .radio-text-3 {
-		width: 115px;
+
+  .beer-size-input:checked ~ .beer-bottle-six-pack {
+    .beer-bottle-top {
+      background: $beer-color;
+    }
+    .beer-bottle-base {
+      background: $beer-color;
+    }
+    .beer-bottle-lid {
+      background: $beer-color;
+    }
   }
+  .beer-size-input:checked ~ .beer-size-label {
+    background: $beer-color;
+    font-weight: bold;
+  }
+
+  .beer-size-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: $beer-empty-color;
+    margin: 0;
+    line-height: $option-height;
+    border: 1px solid white;
+    text-transform: uppercase;
+  }
+
 }

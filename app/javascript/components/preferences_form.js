@@ -1,5 +1,8 @@
 export const initMultistepForm = () => {
   const multiStepFormEl = document.querySelector(".js-multistep-form");
+  if (!multiStepFormEl){
+    return;
+  }
   const stepEls = multiStepFormEl.querySelectorAll(".js-multistep-form-step");
   const nextStepButtonEls = multiStepFormEl.querySelectorAll(
     ".js-multistep-form-step-next-btn"
