@@ -1,4 +1,9 @@
 <div class="favourited-searches">
+  <hr>
+  <div>
+    <%= 'You haven\'t made any searches yet!' if @searches.count.zero? %>
+    <%= 'You haven\'t favourited any searches yet!' if @searches.where(favourited: false).count == @searches.count && @searches.count.positive? %>
+  </div>
   <% @searches.reverse_each do |search| %>
     <div>
       <%if search.favourited %>

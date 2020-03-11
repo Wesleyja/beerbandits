@@ -1,18 +1,40 @@
+
 <div>
-  <%= simple_form_for :filters, remote: true, url: results_path, method: :get do |f| %>
-  <% the_params = params[:filters] || params[:results] || params[:favourited] %>
-    <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
-    <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
-    <%= f.input :size, :as => :hidden, :input_html => { :value => the_params[:size] } %>
+<%= simple_form_for :filters, html: { class: "filters-dropdown-form"}, remote: true, url: results_path, method: :get do |f| %>
+    <% the_params = params[:filters] || params[:results] || params[:favourited] %> 
+      <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
+      <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
+      <%= f.input :size, :as => :hidden, :input_html => { :value => the_params[:size] } %>
+
+<div class="filters-dropdown-buttons">
+  
+<div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Size
+    </button>
+  <div class="dropdown-menu dropdown-menu-center dropdown-menu-labels">
+
     <% if the_params[:size] == "pack" %>
-    <%= f.collection_radio_buttons :sizetype, [['6 Pack', '6'], ['4 Pack', '4'], ['Reset', '4 6']], :last, :first %>
+    <%= f.collection_radio_buttons :sizetype, [['6 Pack', '6'], ['4 Pack', '4'], ['Both', '4 6']], :last, :first %>
     <% else %>
-    <%= f.collection_radio_buttons :sizetype, [['24 Pack', '24'], ['30 Pack', '30'], ['Reset', '24 30']], :last, :first %>
+    <%= f.collection_radio_buttons :sizetype, [['24 Pack', '24'], ['30 Pack', '30'], ['Both', '24 30']], :last, :first %>
     <% end %>
-    <%= f.collection_radio_buttons :distancetype, [['Distance in meters', 'meters'], ['Time in minutes', 'minutes'], ['Reset', 'Reset']], :last, :first %>
+  </div>
+</div>
+
+<div class="btn-group">
+  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Distance
+    </button>
+  <div class="dropdown-menu dropdown-menu-center dropdown-menu-labels">
+    <%= f.collection_radio_buttons :distancetype, [['Distance in meters', 'meters'], ['Time in minutes', 'minutes'], ['Default', 'Reset']], :last, :first %>
     <%= f.input :amount, as: :integer, label: false %>
-    <%= f.button :submit, value: 'Go', "data-disable-with" => "Filtering Best Beers for You..." %>
+  </div>
+</div>
+    <%= f.button :submit, value: 'Go', "data-disable-with" => "Filtering Best Beers for You...", class: "btn btn-danger" %>
   <% end %>
+</div>
+
 </div>
 
 <div
