@@ -5,8 +5,11 @@ class SearchController < ApplicationController
   end
 
   def results
-    the_params = params[:filters] || params[:results]
+    Search.create(user: current_user, source_data: params[:results], favourited: false) if params[:results] && current_user
+
+    the_params = params[:filters] || params[:results] || params[:favourited]
     the_params[:category] = the_params[:category].split(' ') if params[:filters]
+    the_params[:category] = (the_params[:category].split(' ') | ['Pale', 'Ale', 'Pale Ale']) - (the_params[:category].split(' ') & ['Pale', 'Ale', 'Pale Ale']) if params[:favourited]
     if the_params[:size] == "pack"
       size = [4, 6]
     elsif the_params[:size] == "case"
@@ -44,7 +47,7 @@ class SearchController < ApplicationController
       end
     end
     @final_results = final_results.sort {|a,b| a[1]<=>b[1]}
-    if params[:results].nil? && ((the_params[:amount].gsub(/\D/, "").to_i.positive? && !params[:filters][:distancetype].include?("Reset")) || the_params[:advancedfilter] == "standard")
+    if (params[:results].nil? && params[:favourited].nil?) && ((the_params[:amount].gsub(/\D/, "").to_i.positive? && !params[:filters][:distancetype].include?("Reset")) || the_params[:advancedfilter] == "standard")
       @final_results = new_filter_param(the_params[:distancetype], the_params[:amount].gsub(/\D/, "").to_i)
     end
     @markers = find_stores(stores)
