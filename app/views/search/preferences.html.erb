@@ -1,12 +1,12 @@
 <div class="container preferences-main-container">
 
     <%= simple_form_for :results, url: results_path, method: :get do |f| %>
-    
+
     <div class="multistep-form js-multistep-form">
 
       <div class="multistep-form-step js-multistep-form-step multistep-form-step--active">
         <div class="checkbox-container">
-          <h2 class="mb-0 multistep-headers">What's your poison?</h2>
+          <h2 class="mb-0 multistep-headers">Pick your poison?</h2>
           <div class="checkbox-options multistep-form-question">
       	    <%= f.collection_check_boxes(:category, [['Cider', 'Cider'], ['IPA', 'IPA'], ['Lager', 'Lager'], ['Pale Ale','Pale Ale']], :first, :last, include_hidden: false  ) do |b| %>
       	        <%= b.check_box class: 'checkbox-input' %>
@@ -49,7 +49,7 @@
               Next
             </button>
           </div>
-          
+
         </div>
       </div>
 
@@ -72,10 +72,10 @@
       <div class="multistep-form-step js-multistep-form-step loading-page">
       </div>
 
-      
-      
 
-  
+
+
+
     </div>
 
 </div>
