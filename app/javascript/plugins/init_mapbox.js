@@ -10,8 +10,8 @@ const initMapbox = () => {
       maxZoom: 15,
       duration: 1000,
       padding: {
-        top: 20,
-        bottom: 250,
+        top: 60,
+        bottom: 265,
         left: 20,
         right: 20,
       },
