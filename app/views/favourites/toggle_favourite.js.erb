@@ -1,0 +1,7 @@
+function refreshDiv(searchHtml) {
+  const favourites = document.getElementById('ajax-favourites')
+  favourites.innerHTML = searchHtml
+}
+
+
+refreshDiv('<%= j render "favourites/all_searches" %>');
