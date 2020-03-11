@@ -8,9 +8,11 @@
         <div class="checkbox-container">
           <h2 class="mb-0 multistep-headers">What's your poison?</h2>
           <div class="checkbox-options multistep-form-question">
-      	    <%= f.collection_check_boxes(:category, [['Cider', 'Cider'], ['IPA', 'IPA'], ['Lager', 'Lager'], ['Pale Ale','Pale Ale']], :first, :last, include_hidden: false) do |b| %>
+      	    <%= f.collection_check_boxes(:category, [['Cider', 'Cider'], ['IPA', 'IPA'], ['Lager', 'Lager'], ['Pale Ale','Pale Ale']], :first, :last, include_hidden: false  ) do |b| %>
       	        <%= b.check_box class: 'checkbox-input' %>
-      	        <%= b.label(class: 'checkbox-label') { b.text } %>
+      	        <%= b.label class: 'checkbox-label' do %>
+                  <%= b.text %>
+                <% end %>
       	    <% end %>
           </div>
           <div class="d-flex justify-content-center" >
@@ -27,7 +29,7 @@
         <div class="radio-container">
           <h2 class="radio-header multistep-headers">Plans for tonight?</h2>
           <div class="beer-size-options multistep-form-question">
-            <%= f.collection_radio_buttons(:size, [['pack', 'Quiet one'], ['case', 'Big night']], :first, :last, include_hidden: false) do |a| %>
+            <%= f.collection_radio_buttons(:size, [['pack', 'Quiet one'], ['case', 'Big night']], :first, :last, include_hidden: false, :checked => ['pack', 'Quiet one'] ) do |a| %>
               <%= a.radio_button class: 'beer-size-input' %>
               <% if a.value == 'case' %>
                 <%= render "shared/beer-pack" %>
