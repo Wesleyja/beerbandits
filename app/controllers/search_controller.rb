@@ -47,7 +47,7 @@ class SearchController < ApplicationController
       end
     end
     @final_results = final_results.sort {|a,b| a[1]<=>b[1]}
-    if params[:results].nil? && ((the_params[:amount].gsub(/\D/, "").to_i.positive? && !params[:filters][:distancetype].include?("Reset")) || the_params[:advancedfilter] == "standard")
+    if (params[:results].nil? && params[:favourited].nil?) && ((the_params[:amount].gsub(/\D/, "").to_i.positive? && !params[:filters][:distancetype].include?("Reset")) || the_params[:advancedfilter] == "standard")
       @final_results = new_filter_param(the_params[:distancetype], the_params[:amount].gsub(/\D/, "").to_i)
     end
     @markers = find_stores(stores)
