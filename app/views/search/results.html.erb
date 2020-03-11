@@ -1,3 +1,5 @@
+
+<div>
 <%= simple_form_for :filters, html: { class: "filters-dropdown-form"}, remote: true, url: results_path, method: :get do |f| %>
     <% the_params = params[:filters] || params[:results] || params[:favourited] %> 
       <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
@@ -11,6 +13,7 @@
       Size
     </button>
   <div class="dropdown-menu dropdown-menu-center dropdown-menu-labels">
+
     <% if the_params[:size] == "pack" %>
     <%= f.collection_radio_buttons :sizetype, [['6 Pack', '6'], ['4 Pack', '4'], ['Both', '4 6']], :last, :first %>
     <% else %>
@@ -55,14 +58,17 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content product-card-modal card">
       <div class="modal-body">
-        <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image-modal card-img-top" alt="beer-image"/>
+        <!-- <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image-modal card-img-top" alt="beer-image"/> -->
           <h2 class="product-card-brand-modal js-drink-store"></h2>
           <h3 class="product-card-name-modal js-drink-name"></h3>
           <p class="product-card-price-modal js-drink-price"></p>
+          <p class="js-drink-standards"></p>
           <p class="js-drink-abv"></p>
           <div class="product-card-footer-modal">
-            <div class="product-card-distance-modal">20km</div>
+            <div class="product-card-distance-modal js-drink-distance"></div>
+            <div class="product-card-distance-modal js-drink-distance-time"></div>
           </div>
+          <a class="js-drink-maps" href="">Take me there</a>
         </div>
 
       </div>
