@@ -1,5 +1,6 @@
-$beer-color: #FEB300;
-$beer-empty-color: #F3E4C0;
+// $beer-color: #FEB300;
+$beer-color: #f3b942;
+$beer-empty-color: #faf2d3;
 $option-height: 40px;
 
 .beer-size-options {
@@ -60,6 +61,7 @@ $option-height: 40px;
     line-height: $option-height;
     border: 1px solid white;
     text-transform: uppercase;
+    letter-spacing: 1px;
   }
 
 }

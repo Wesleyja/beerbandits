@@ -57,10 +57,10 @@
 }
 
 .checkbox-input:checked ~ .checkbox-label {
-  color: black;
-  // border: 3px solid #FEB300;
-  color: rgba(0,0,0,0.7);
-  background: #FEB300;
+  border: 1px solid #FEB300;
+  // transform-origin: 100% 100%;
+  transform: scale(1.05);
+  transition: 0.3s;
 }
 
 
@@ -70,6 +70,7 @@
   background-repeat: no-repeat;
   background-color: #fcf7e4;
   padding: 8px 0px 74px 0px;
+  background-position: center 38px;
 }
 .simple_form label[for='results_category_lager'] {
   background-image: url('lager-icon.jpg');
@@ -77,6 +78,7 @@
   background-repeat: no-repeat;
   background-color: #fcf7e4;
   padding: 8px 0px 74px 0px;
+  background-position: center 44px;
 }
 .simple_form label[for='results_category_cider'] {
   background-image: url('cider-icon.jpg');
@@ -84,6 +86,7 @@
   background-repeat: no-repeat;
   background-color: #fcf7e4;
   padding: 8px 0px 74px 0px;
+  background-position: center 44px;
 }
 .simple_form label[for='results_category_ipa'] {
   background-image: url('ipa-icon.jpg');
@@ -91,6 +94,7 @@
   background-repeat: no-repeat;
   background-color: #fcf7e4;
   padding: 8px 0px 74px 0px;
+  background-position: center 40px;
 }
 
 
