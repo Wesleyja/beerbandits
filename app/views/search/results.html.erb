@@ -1,5 +1,5 @@
 <div>
-  <%= simple_form_for :filters, url: results_path, method: :get do |f| %>
+  <%= simple_form_for :filters, remote: true, url: results_path, method: :get do |f| %>
   <% the_params = params[:filters] || params[:results] || params[:favourited] %> 
     <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
     <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
