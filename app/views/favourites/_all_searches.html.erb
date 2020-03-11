@@ -1,8 +1,12 @@
 <div id="ajax-favourites">
 
   <div>
-    <div>
-      <%= 'You haven\'t made any searches yet!' if @searches.count.zero? %>
+    <div class="container">
+      <% if @searches.count.zero? %>
+        <p>You haven't made any searches yet!</p>
+        <p>Search for cheap beers nearby:</p>
+        <%= link_to "Find Beers", preferences_path, class: "btn btn-primary" %>
+      <% end %>
       <%= 'You haven\'t favourited any searches yet!' if @searches.where(favourited: false).count == @searches.count && @searches.count.positive? %>
     </div>
     <% @searches.reverse_each do |search| %>
@@ -26,7 +30,7 @@
     <% end %>
   </div>
   <hr>
-  <div class="all-searches">
+  <div class="all-searches container">
     <% @searches.reverse_each do |search| %>
       <div data-search-id="<%= search.id %>">
         <% unless search.favourited %>
