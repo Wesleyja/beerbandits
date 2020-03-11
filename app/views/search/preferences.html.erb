@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container preferences-main-container">
 
     <%= simple_form_for :results, url: results_path, method: :get do |f| %>
     
@@ -59,7 +59,6 @@
           <%= f.input :location, as: :string, placeholder: 'Search your location...', label_html: { class: 'preferences-store-location' }, input_html: { id: 'store-location' } %>
         </div>
         <div class="d-flex justify-content-center" >
-          
           <button type="button" class="btn btn-primary js-multistep-form-step-previous-btn">
             Previous
           </button>
@@ -67,6 +66,12 @@
           <% end %>
         </div>
       </div>
+
+
+
+      <div class="multistep-form-step js-multistep-form-step loading-page">
+      </div>
+
       
       
 

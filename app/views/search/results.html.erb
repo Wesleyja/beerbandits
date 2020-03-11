@@ -24,8 +24,11 @@
       Distance
     </button>
   <div class="dropdown-menu dropdown-menu-center dropdown-menu-labels">
-    <%= f.collection_radio_buttons :distancetype, [['Distance in meters', 'meters'], ['Time in minutes', 'minutes'], ['Default', 'Reset']], :last, :first %>
-    <%= f.input :amount, as: :integer, label: false %>
+    <div class="dropdown-content">
+      <%= f.collection_radio_buttons :distancetype, [['Distance in meters', 'meters'], ['Time in minutes', 'minutes'], ['Default', 'Reset']], :last, :first %>
+      <%= f.input :amount, as: :integer, label: false %>
+      
+    </div>
   </div>
 </div>
     <%= f.button :submit, value: 'Go', "data-disable-with" => "Filtering Best Beers for You...", class: "btn btn-danger" %>
