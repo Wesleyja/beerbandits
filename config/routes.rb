@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   get 'style-guide', to: 'pages#style_guide'
 
   delete 'favourites/:id', to: 'favourites#destroy', as: :favourites_delete
-  patch 'favourites/:id', to: 'favourites#favourite', as: :favourites_favourite
+  patch 'favourites/:id/toggle', to: 'favourites#toggle_favourite', as: :favourites_toggle_favourite
+  patch 'favourites/:id', to: 'favourites#update', as: :favourites_update
 end

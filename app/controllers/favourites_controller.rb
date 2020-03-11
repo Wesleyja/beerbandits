@@ -5,16 +5,22 @@ class FavouritesController < ApplicationController
     @searches = Search.where(user: current_user)
   end
 
-  def favourite
+  def toggle_favourite
     @search = Search.find(params[:id])
     if @search.favourited
       @search.update(favourited: false)
     else
       @search.update(favourited: true)
     end
+    @searches = Search.where(user: current_user)
+  end
+
+  def update
+    @search = Search.find(params[:id])
     @search.update(favourited: true, name: params[:search][:name]) if params[:search][:name]
+    @searches = Search.where(user: current_user)
     respond_to do |format|
-      format.js
+      format.js { render 'favourites/toggle_favourite' }
     end
   end
 
@@ -22,7 +28,6 @@ class FavouritesController < ApplicationController
     @search = Search.find(params[:id])
     if @search.destroy
       respond_to do |format|
-        # format.html { redirect_to favourites_path }
         format.js
       end
     end
