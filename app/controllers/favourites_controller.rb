@@ -13,10 +13,18 @@ class FavouritesController < ApplicationController
       @search.update(favourited: true)
     end
     @search.update(favourited: true, name: params[:search][:name]) if params[:search][:name]
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
     @search = Search.find(params[:id])
-    @search.destroy
+    if @search.destroy
+      respond_to do |format|
+        # format.html { redirect_to favourites_path }
+        format.js
+      end
+    end
   end
 end

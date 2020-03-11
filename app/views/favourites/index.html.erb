@@ -12,7 +12,7 @@
           <%= f.input :name, label: false %>
           <%= f.button :submit, value: 'Save', data: { disable_with: false } %>
         <% end %>
-        <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']}." %>
+        <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']} - Favorited on #{search.updated_at.to_date}." %>
         <%= link_to 'Unfavourite', favourites_favourite_path(search), method: :patch, remote: true %>
         <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
           <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
@@ -28,11 +28,11 @@
 
 <div class="all-searches">
   <% @searches.reverse_each do |search| %>
-    <div>
+    <div data-search-id="<%= search.id %>">
       <% unless search.favourited %>
-        <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']} - Search on #{search.created_at.to_date}" %>
-        <%= link_to 'Favourite', favourites_favourite_path(search), method: :patch, remote: true %>
-        <%= link_to 'Delete', favourites_delete_path(search), method: :delete, remote: true %>
+        <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']} - Search on #{search.created_at.to_date}." %>
+        <button class="btn btn-primary" onclick="favoruiteSearch()"><%= link_to 'Favourite', favourites_favourite_path(search), method: :patch, remote: true %><button>
+        <button class="btn btn-primary"><%= link_to 'Delete', favourites_delete_path(search), method: :delete, remote: true %></button>
       <% end %> 
     </div>
   <% end %>
