@@ -1,0 +1,40 @@
+<div id="ajax-favourites">
+
+  <div>
+    <div>
+      <%= 'You haven\'t made any searches yet!' if @searches.count.zero? %>
+      <%= 'You haven\'t favourited any searches yet!' if @searches.where(favourited: false).count == @searches.count && @searches.count.positive? %>
+    </div>
+    <% @searches.reverse_each do |search| %>
+      <div>
+        <%if search.favourited %>
+          <h6><%= search.name %></h3>
+          <%= simple_form_for search, url: favourites_update_path(search), method: :patch, remote: true do |f| %>
+            <%= f.input :name, label: false %>
+            <%= f.button :submit, value: 'Save', data: { disable_with: false } %>
+          <% end %>
+          <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']} - Favorited on #{search.updated_at.to_date}." %>
+          <%= link_to 'Unfavourite', favourites_toggle_favourite_path(search), method: :patch, remote: true %>
+          <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
+            <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
+            <%= f.input :location, :as => :hidden, :input_html => { :value => search.source_data['location'] } %>
+            <%= f.input :size, :as => :hidden, :input_html => { :value => search.source_data['size'] } %>
+            <%= f.button :submit, value: 'Take me there again!', "data-disable-with" => "Finding Best Beers for You... AGAIN!" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <hr>
+  <div class="all-searches">
+    <% @searches.reverse_each do |search| %>
+      <div data-search-id="<%= search.id %>">
+        <% unless search.favourited %>
+          <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']} - Search on #{search.created_at.to_date}." %>
+          <%= link_to 'Favourite', favourites_toggle_favourite_path(search), method: :patch, remote: true %>
+          <%= link_to 'Delete', favourites_delete_path(search), method: :delete, remote: true %>
+        <% end %> 
+      </div>
+    <% end %>
+  </div>
+<div>
