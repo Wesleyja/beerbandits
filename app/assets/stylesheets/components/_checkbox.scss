@@ -65,7 +65,7 @@
 
 
 .simple_form label[for='results_category_pale_ale'] {
-  background-image: url('paleale-icon.jpg');
+  background-image: url(asset_path('paleale-icon.jpg'));
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #fcf7e4;
@@ -73,7 +73,7 @@
   background-position: center 38px;
 }
 .simple_form label[for='results_category_lager'] {
-  background-image: url('lager-icon.jpg');
+  background-image: url(asset_path('lager-icon.jpg'));
   background-size: contain;
   background-repeat: no-repeat;
   background-color: #fcf7e4;
@@ -81,7 +81,7 @@
   background-position: center 44px;
 }
 .simple_form label[for='results_category_cider'] {
-  background-image: url('cider-icon.jpg');
+  background-image: url(asset_path('cider-icon.jpg'));
   background-size: contain;
   background-repeat: no-repeat;
   background-color: #fcf7e4;
@@ -89,7 +89,7 @@
   background-position: center 44px;
 }
 .simple_form label[for='results_category_ipa'] {
-  background-image: url('ipa-icon.jpg');
+  background-image: url(asset_path('ipa-icon.jpg'));
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #fcf7e4;
