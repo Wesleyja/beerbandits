@@ -16,15 +16,32 @@
 .dropdown-toggle {
 	font-size: 14px !important;
   padding: 4px 20px !important;
+  background-color: #7f7f7f !important;
+  color: white !important;
 }
 
-// .dropdown-menu-labels {
-// 	display: flex;
-//   flex-direction: column;
-//   padding: 0px 12px;
-// }
+.filters-dropdown-buttons {
+	position: absolute;
+    z-index: 3;
+    top: 69px;
+    left: 5px;
+}
 
-.dropdown-content {
-	    display: flex;
+.dropdown-menu-content {
+    display: flex;
     flex-direction: column;
+    padding: 0px 12px;
+    font-size: 14px;
+    .collection_radio_buttons {
+    	margin-left: 6px;
+    }
+}
+
+#filters_amount {
+	border-radius: 8px;
+	font-size: 12px;
+}
+
+.simple_form label[for='filters_distancetype_meters'] {
+	display: inline;
 }
