@@ -13,8 +13,8 @@
         data-drink-price="<% new_price = "$" + sprintf('%.2f',(x.first.inventory.price_cents.to_f/100.00))%><%= new_price %>"
         data-drink-abv="<%= x.first.product.drink.abv %>% |"
         data-drink-standards="<%= (x.first.product.size * x.first.product.drink.standard_drink).round(2) %> standards | $<%= sprintf('%.2f',((x.first.inventory.price_cents.to_f/100).to_f / ((x.first.product.size) * (x.first.product.drink.standard_drink)))) %> per standard"
-        data-drink-distance="<% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %><%= distance %>m"
-        data-drink-distance-time="<% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %>approx <%= (distance / (500 / 6)) %> mins"
+        data-drink-distance="<%= (Store.find(x.first.inventory.store.id).distance_to(@current_location)*1000).round %>m"
+        data-drink-distance-time="<% distance = (Store.find(x.first.inventory.store.id).distance_to(@current_location)*1000).round %>approx <%= (distance / (500 / 6)) %> mins"
         data-drink-maps="https://www.google.com/maps/dir/<%= @current_location.join(",") %>/<%= x.first.inventory.store.latitude %>,<%= x.first.inventory.store.longitude %>">
 
         <div class="product-card-price">
