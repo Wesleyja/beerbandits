@@ -1,22 +1,24 @@
 <div class="list-group" id="ajax-favourites">
+  <h4 class="favourites-heading">MY FAVOURITES</h4>
   <div>
     <% if @searches.count.zero? || (@searches.where(favourited: false).count == @searches.count && @searches.count.positive?) %>
       <% if @searches.count.zero? %>
-        <div class="list-group-item list-group-item-action list-group-item-danger">You haven't made any searches yet</div>
+        <div class="list-group-item list-group-item-action list-group-item-danger">You haven't made any searches yet!</div>
       <% else %>
         <div class="list-group-item list-group-item-action list-group-item-danger">You haven't favourited any searches yet!</div>
       <% end %>
     <% end %>
+
     <% fav_search = @searches.select { |x| x.favourited == true } %>
     <% fav_search.reverse_each do |search| %>
-    <div class="list-group-item list-group-item-action list-group-item-info">
-
-      <% if !search.name.nil? %>
-        <h3><%= search.name %></h3>
-      <% end %>
+    <div class="card card-favourite">
       <div class="btn-group">
-        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Update
+        <button type="button" class="dropdown-name-edit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <% if search.name.nil? %>
+            <%= 'What\'s the occasion?' %><span class="far fa-edit edit-icon"></span>
+          <% else %>
+            <%= search.name %><span class="far fa-edit edit-icon"></span>
+          <% end %>
         </button>
         <div class="dropdown-menu">
           <%= simple_form_for search, url: favourites_update_path(search), method: :patch, remote: true do |f| %>
@@ -27,39 +29,41 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item"><%= f.button :submit, value: 'Save', data: { disable_with: false } %></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item"><%= link_to 'Unfavourite', favourites_toggle_favourite_path(search), method: :patch, remote: true, class: "btn btn-primary"  %></a>
           <% end %>
         </div>
       </div>
       <div>
-        <%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}, around #{search.source_data['location']}" %>
+        <p class="favourites-size-category"><%= "#{search.source_data['size'].capitalize} size -  #{search.source_data['category'].join(' & ')}" %></p>
+        <p class="favourites-location"><%= "Around #{search.source_data['location']}" %></p>
         <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
           <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
           <%= f.input :location, :as => :hidden, :input_html => { :value => search.source_data['location'] } %>
           <%= f.input :size, :as => :hidden, :input_html => { :value => search.source_data['size'] } %>
-          <small> Favorited on <%=search.updated_at.to_date %></small>
-          <%= f.button :submit, value: 'Take me there again!', "data-disable-with" => "Finding Best Beers for You... AGAIN!", class: "btn btn-primary"  %>
+          <%= f.button :submit, value: 'Go again!', class: "btn btn-primary"  %>
+          <%= link_to '', favourites_toggle_favourite_path(search), method: :patch, remote: true, class: "fas fa-bookmark favourite-icon"  %>
         <% end %>
       </div>
     </div>
     <% end %>
   </div>
+  <h4 class="favourites-heading">Recent Searches</h4>
   <div class="all-searches">
     <% not_fav_search = @searches.select { |x| x.favourited == false } %>
     <% not_fav_search.reverse_each do |search| %>
-      <div class="list-group-item list-group-item-action" data-search-id="<%= search.id %>">
-        <div class="d-flex w-100 justify-content-between">
-          <h6><%= "#{search.source_data['size'].capitalize} of #{search.source_data['category'].join(' & ')}, near #{search.source_data['location']}" %></h6>
-          <small><%= "Searched on #{search.created_at.to_formatted_s(:long_ordinal)}" %></small>
+      <div class="card card-search" data-search-id="<%= search.id %>">
+        <div>
+          <p class="favourites-size-category"><%= "#{search.source_data['size'].capitalize} of #{search.source_data['category'].join(' & ')}"%></p> 
+          <p class="favourites-location"><%= "#{search.source_data['location']}" %></p>
         </div>
-          <%= link_to 'Favourite', favourites_toggle_favourite_path(search), method: :patch, remote: true, class: "btn btn-primary"  %>
-          <%= link_to 'Delete', favourites_delete_path(search), method: :delete, remote: true, class: "btn btn-primary"  %>
           <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
+            <%= f.button :submit, value: 'Go again!', class: "btn btn-primary"  %>
+            <%= link_to '', favourites_delete_path(search), method: :delete, remote: true, class: "fas fa-trash trash-icon"  %>
+            <%= link_to '', favourites_toggle_favourite_path(search), method: :patch, remote: true, class: "fas fa-bookmark unfavourite-icon"  %>
             <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
             <%= f.input :location, :as => :hidden, :input_html => { :value => search.source_data['location'] } %>
             <%= f.input :size, :as => :hidden, :input_html => { :value => search.source_data['size'] } %>
-            <%= f.button :submit, value: 'Take me there again!', "data-disable-with" => "Finding Best Beers for You... AGAIN!", class: "btn btn-primary"  %>
           <% end %>
+          <small class="favourite-search-date"><%= "Searched on #{search.created_at.to_formatted_s(:long_ordinal)}" %></small>
       </div>
       </div>
     <% end %>
