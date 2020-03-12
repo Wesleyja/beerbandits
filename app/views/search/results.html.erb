@@ -68,18 +68,28 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content product-card-modal card">
       <div class="modal-body">
-          <h2 class="product-card-name-modal js-drink-name"></h2>
-          <h3 class="product-card-brand-modal js-drink-store"></h3>
-          <p class="product-card-price-modal js-drink-price"></p>
-          <p class="js-drink-standards product-card-standards-modal"></p>
-          <p class="js-drink-abv product-card-abv-modal"></p>
-          <div class="product-card-footer-modal">
-            <div class="product-card-distance-modal js-drink-distance"></div>
-            <div class="product-card-distance-modal js-drink-distance-time"></div>
-          </div>
-          <a class="js-drink-maps btn btn-danger" href="">Take me there</a>
+        <h2 class="product-card-name-modal js-drink-name text-center"></h2>
+        <div class="product-card-price my-3">
+          <p class="product-card-price-text js-drink-price">
+           
+          </p>
         </div>
-
+        <div class="product-card-standards-modal">
+          <span class="js-drink-abv"></span>
+          <span class="js-drink-standards"></span>
+        </div>
+      </div>
+      <div class="product-card-footer-modal">
+        <h3 class="product-card-brand-modal js-drink-store"></h3>
+        <a class="js-drink-maps product-card-map-btn" href="">
+          <span>
+            <span class="fas fa-walking card-walking-icon"></span>
+            <span class="js-drink-distance"></span>
+            (<span class="js-drink-distance-time"></span>)
+          </span>
+          <span class="fa fa-angle-right"></span>
+        </a>        
+      </div>
       </div>
     </div>
   </div>
