@@ -9,7 +9,7 @@ class SearchController < ApplicationController
 
     the_params = params[:filters] || params[:results] || params[:favourited]
     the_params[:category] = the_params[:category].split(' ') if params[:filters]
-    the_params[:category] = (the_params[:category].split(' ') | ['Pale', 'Ale', 'Pale Ale']) - (the_params[:category].split(' ') & ['Pale', 'Ale', 'Pale Ale']) if params[:favourited]
+    the_params[:category] = (the_params[:category] = the_params[:category].gsub("Pale Ale", "PaleAle").split.map {|word| word == "PaleAle" ?  word = "Pale Ale" : word}) if params[:favourited]
     if the_params[:size] == "pack"
       size = [4, 6]
     elsif the_params[:size] == "case"
@@ -18,6 +18,7 @@ class SearchController < ApplicationController
       size = [0]
     end
     location = the_params[:location].gsub("Greater ", "")
+    location = the_params[:location].gsub("", "41 Stewart St, Richmond VIC 3121, Australia") if the_params[:location] == ""
     if !the_params[:sizetype].nil?
       new_size = the_params[:sizetype].split
       size = new_size.collect { |x| x.to_i }

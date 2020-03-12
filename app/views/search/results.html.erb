@@ -1,13 +1,13 @@
 
 <div>
 <%= simple_form_for :filters, html: { class: "filters-dropdown-form"}, remote: true, url: results_path, method: :get do |f| %>
-    <% the_params = params[:filters] || params[:results] || params[:favourited] %> 
+    <% the_params = params[:filters] || params[:results] || params[:favourited] %>
       <%= f.input :category, :as => :hidden, :input_html => { :value => the_params[:category] } %>
       <%= f.input :location, :as => :hidden, :input_html => { :value => the_params[:location] } %>
       <%= f.input :size, :as => :hidden, :input_html => { :value => the_params[:size] } %>
 
 <div class="filters-dropdown-buttons">
-  
+
 <div class="btn-group">
   <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Size
@@ -17,8 +17,10 @@
     <div class="dropdown-menu-content">
       <% if the_params[:size] == "pack" %>
       <%= f.collection_radio_buttons :sizetype, [['6 Pack', '6'], ['4 Pack', '4'], ['Both', '4 6']], :last, :first %>
-      <% else %>
+      <% elsif the_params[:size] == "case" && the_params[:category].include?("Lager") %>
       <%= f.collection_radio_buttons :sizetype, [['24 Pack', '24'], ['30 Pack', '30'], ['Both', '24 30']], :last, :first %>
+      <% else %>
+      <small>There is only 24 pack available for your selection</small>
       <% end %>
     </div>
   </div>
@@ -30,9 +32,10 @@
     </button>
   <div class="dropdown-menu dropdown-menu-center dropdown-menu-labels">
     <div class="dropdown-menu-content">
+      <h6>What distance in metres or time spent walking is saving $1 worth to you?</h6>
       <%= f.collection_radio_buttons :distancetype, [['Distance (meters)', 'meters'], ['Time (minutes)', 'minutes'], ['Default', 'Reset']], :last, :first %>
       <%= f.input :amount, as: :integer, label: false, placeholder: 'Type a number...' %>
-      
+
     </div>
   </div>
 </div>
@@ -49,7 +52,9 @@
   position: relative;"
   data-markers="<%= @markers.to_json %>"
   <% the_params = params[:filters] || params[:results] || params[:favourited] %>
-  data-center="<%= Geocoder.search(the_params[:location].gsub("Greater ", "")).first.coordinates %>"
+  <% location = the_params[:location].gsub("Greater ", "") %>
+  <% location = the_params[:location].gsub("", "41 Stewart St, Richmond VIC 3121, Australia") if the_params[:location] == "" %>
+  data-center="<%= Geocoder.search(location).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   >
   <div class="swiper-container">

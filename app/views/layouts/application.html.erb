@@ -34,6 +34,17 @@
           clickable: true,
         },
       });
+      swiper.on('slideChange', function() {
+        var activeSlide = this.slides[this.activeIndex];
+        var latitude = activeSlide.dataset.latitude;
+        var longitude = activeSlide.dataset.longitude;
+        window.beerMap.flyTo({center: [parseFloat(longitude), 
+        parseFloat(latitude)], 
+        zoom: 14, 
+        offset: [0, -100],
+        speed: 0.8});
+      });
+
     </script>
 
   </body>

@@ -20,6 +20,19 @@ body {
 	opacity: 0;
 }
 
-.swiper-slide {
-  // width: 50% !important;
+// .swiper-slide {
+//   // width: 50% !important;
+// }
+.swiper-container {
+  overflow: visible !important;
+}
+.swiper-slide .product-card {
+  transform: scale(0.9);
+  transition: transform 0.3s;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+.swiper-slide-active .product-card {
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  transform: scale(1);
 }
