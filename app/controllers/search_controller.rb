@@ -19,7 +19,12 @@ class SearchController < ApplicationController
     end
     location = the_params[:location].gsub("Greater ", "")
     location = the_params[:location].gsub("", "41 Stewart St, Richmond VIC 3121, Australia") if the_params[:location] == ""
-    if !the_params[:sizetype].nil?
+    if the_params[:category].include?("Ale")
+      the_new_params = the_params[:category].map { |word| word == "Ale" ? word = "Pale Ale" : word }
+      the_new_params.delete_at(the_new_params.index("Pale"))
+      the_params[:category] = the_new_params
+    end
+    if !the_params[:sizetype].nil? && !the_params[:sizetype].empty?
       new_size = the_params[:sizetype].split
       size = new_size.collect { |x| x.to_i }
     end

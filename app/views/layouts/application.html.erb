@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>BeerBandits</title>
+    <title>Beer Bandits, comparison for beer nearby</title>
     <%= csrf_meta_tags %>
+    <%= favicon_link_tag %>
     <%= action_cable_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
@@ -14,7 +15,7 @@
 
   <body>
     <%= render 'shared/navbar' %>
-    
+
     <%= yield %>
 
     <%= render 'shared/flashes' %>
@@ -24,27 +25,29 @@
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
     <script>
-      var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 1.5,
-        loop: false,
-        spaceBetween: 10,
-        centeredSlides: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-      });
-      swiper.on('slideChange', function() {
-        var activeSlide = this.slides[this.activeIndex];
-        var latitude = activeSlide.dataset.latitude;
-        var longitude = activeSlide.dataset.longitude;
-        window.beerMap.flyTo({center: [parseFloat(longitude), 
-        parseFloat(latitude)], 
-        zoom: 14, 
-        offset: [0, -100],
-        speed: 0.8});
-      });
-
+      function initSlider() {
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 1.5,
+          loop: false,
+          spaceBetween: 10,
+          centeredSlides: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+        });
+        swiper.on('slideChange', function() {
+          var activeSlide = this.slides[this.activeIndex];
+          var latitude = activeSlide.dataset.latitude;
+          var longitude = activeSlide.dataset.longitude;
+          window.beerMap.flyTo({center: [parseFloat(longitude),
+          parseFloat(latitude)],
+          zoom: 14,
+          offset: [0, -100],
+          speed: 0.8});
+        });
+      }
+      initSlider();
     </script>
 
   </body>

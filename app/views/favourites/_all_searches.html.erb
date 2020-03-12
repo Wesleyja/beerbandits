@@ -1,6 +1,7 @@
 <div class="list-group" id="ajax-favourites">
   <h4 class="favourites-heading">MY FAVOURITES</h4>
   <div>
+    <h2>Favourites</h2>
     <% if @searches.count.zero? || (@searches.where(favourited: false).count == @searches.count && @searches.count.positive?) %>
       <% if @searches.count.zero? %>
         <div class="list-group-item list-group-item-action list-group-item-danger">You haven't made any searches yet!</div>
@@ -26,7 +27,6 @@
           <a class="dropdown-item">
             <%= f.input :name, label: false %>
           </a>
-          <div class="dropdown-divider"></div>
           <a class="dropdown-item"><%= f.button :submit, value: 'Save', data: { disable_with: false } %></a>
           <div class="dropdown-divider"></div>
           <% end %>
@@ -48,6 +48,7 @@
   </div>
   <h4 class="favourites-heading">Recent Searches</h4>
   <div class="all-searches">
+    <h2>Your searches</h2>
     <% not_fav_search = @searches.select { |x| x.favourited == false } %>
     <% not_fav_search.reverse_each do |search| %>
       <div class="card card-search" data-search-id="<%= search.id %>">
@@ -65,7 +66,7 @@
           <% end %>
           <small class="favourite-search-date"><%= "Searched on #{search.created_at.to_formatted_s(:long_ordinal)}" %></small>
       </div>
-      </div>
+    </div>
     <% end %>
   </div>
 <div>
