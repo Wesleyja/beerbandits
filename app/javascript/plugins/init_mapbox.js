@@ -28,6 +28,7 @@ const initMapbox = () => {
       style: 'mapbox://styles/mapbox/streets-v10',
       zoom: 15
     });
+    window.beerMap = map;
     const markers = JSON.parse(mapElement.dataset.markers);
       if (markers.length != 0) {
         markers.forEach((marker) => {
