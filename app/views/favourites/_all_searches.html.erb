@@ -1,7 +1,6 @@
 <div class="list-group" id="ajax-favourites">
   <h4 class="favourites-heading">MY FAVOURITES</h4>
   <div>
-    <h2>Favourites</h2>
     <% if @searches.count.zero? || (@searches.where(favourited: false).count == @searches.count && @searches.count.positive?) %>
       <% if @searches.count.zero? %>
         <div class="list-group-item list-group-item-action list-group-item-danger">You haven't made any searches yet!</div>
@@ -48,12 +47,11 @@
   </div>
   <h4 class="favourites-heading">Recent Searches</h4>
   <div class="all-searches">
-    <h2>Your searches</h2>
     <% not_fav_search = @searches.select { |x| x.favourited == false } %>
     <% not_fav_search.reverse_each do |search| %>
       <div class="card card-search" data-search-id="<%= search.id %>">
         <div>
-          <p class="favourites-size-category"><%= "#{search.source_data['size'].capitalize} of #{search.source_data['category'].join(' & ')}"%></p> 
+          <p class="favourites-size-category"><%= "#{search.source_data['size'].capitalize} of #{search.source_data['category'].join(' & ')}"%></p>
           <p class="favourites-location"><%= "#{search.source_data['location']}" %></p>
         </div>
           <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
