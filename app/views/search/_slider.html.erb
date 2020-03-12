@@ -1,5 +1,5 @@
-<div class="swiper-wrapper" id="ajax-slider">
-
+<div class="swiper-container">
+  <div class="swiper-wrapper">
   <% @final_results.first(10).each do |x| %>
     <div class="swiper-slide" data-latitude="<%= x.first.inventory.store.latitude %>" data-longitude="<%= x.first.inventory.store.longitude%>">
       <div class="product-card card">
@@ -27,11 +27,11 @@
           <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
           <h2 class="product-card-brand"><%= x.first.product.size %> pack</h2>
           <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
-        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
 
-  </button>
+    </button>
 
+  </div>
+ </div>
 </div>
