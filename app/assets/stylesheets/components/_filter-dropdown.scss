@@ -22,9 +22,12 @@
 
 .filters-dropdown-buttons {
 	position: absolute;
-    z-index: 3;
-    top: 69px;
-    left: 5px;
+  z-index: 3;
+  top: 69px;
+  left: 5px;
+  width: 98%;
+  display: flex;
+  justify-content: space-around;
 }
 
 .dropdown-menu-content {

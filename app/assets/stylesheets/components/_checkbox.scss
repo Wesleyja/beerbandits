@@ -58,8 +58,8 @@
 
 .checkbox-input:checked ~ .checkbox-label {
   border: 1px solid #FEB300;
-  // transform-origin: 100% 100%;
-  transform: scale(1.05);
+  // transform-origin: 0% 100%;
+  // transform: scale(1.05);
   transition: 0.3s;
 }
 
