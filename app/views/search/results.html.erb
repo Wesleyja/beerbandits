@@ -56,7 +56,7 @@
   data-center="<%= Geocoder.search(location).first.coordinates %>"
   data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
   >
-  <div class="swiper-container">
+  <div id="ajax-slider">
     <%= render 'search/slider' %>
   </div>
 </div>
