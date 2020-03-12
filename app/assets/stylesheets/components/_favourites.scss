@@ -2,3 +2,76 @@
   background-color: black;
 
 }
+
+.fa-edit {
+  margin-left: 5px;
+}
+
+.dropdown-name-edit {
+  padding: 0;
+  margin-left: -2px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.card-favourite {
+  padding: 8px 18px;
+  margin: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
+  background: whitesmoke
+}
+
+.favourites-size-category {
+  margin-bottom: 0px;
+  font-size: 16px;
+}
+
+.favourites-location {
+  font-weight: lighter;
+  font-size: 14px;
+}
+
+.favourite-icon {
+  border: 2px solid #F0C032;
+  color: #F0C032;
+  border-radius: 50%;
+  padding: 8px 10px;
+  right: 19px;
+  position: absolute;
+  bottom: 11px;
+}
+
+.unfavourite-icon {
+  border: 2px solid grey;
+  color: grey;
+  border-radius: 50%;
+  padding: 8px 10px;
+  right: 19px;
+  position: absolute;
+  bottom: 43px;
+}
+
+.favourites-heading {
+  margin: 4px 12px;
+  color: #5D45E0;
+  border-bottom: 2px solid #5D45E0;
+  padding-bottom: 7px;
+}
+
+.card-search {
+  padding: 8px 18px;
+  margin: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.05);
+}
+
+.trash-icon {
+  border: 2px solid grey;
+  color: grey;
+  border-radius: 50%;
+  padding: 8px 9.5px;
+  position: absolute;
+  bottom: 43px;
+  right:60px;
+}
