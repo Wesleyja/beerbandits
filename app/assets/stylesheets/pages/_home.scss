@@ -18,9 +18,10 @@ body {
 .banner {
   background-image: url('https://cdn.dribbble.com/users/2054184/screenshots/5265935/dribbble_beer-flask.gif');
   height: 100%;
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
-  background-position: -210px -142px;
+  background-position-x: center;
+  // background-position: -210px -142px;
 }
 
 .home-container {
