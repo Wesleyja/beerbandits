@@ -25,27 +25,29 @@
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
 
     <script>
-      var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 1.5,
-        loop: false,
-        spaceBetween: 10,
-        centeredSlides: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-        },
-      });
-      swiper.on('slideChange', function() {
-        var activeSlide = this.slides[this.activeIndex];
-        var latitude = activeSlide.dataset.latitude;
-        var longitude = activeSlide.dataset.longitude;
-        window.beerMap.flyTo({center: [parseFloat(longitude), 
-        parseFloat(latitude)], 
-        zoom: 14, 
-        offset: [0, -100],
-        speed: 0.8});
-      });
-
+      function initSlider() {
+        var swiper = new Swiper('.swiper-container', {
+          slidesPerView: 1.5,
+          loop: false,
+          spaceBetween: 10,
+          centeredSlides: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+        });
+        swiper.on('slideChange', function() {
+          var activeSlide = this.slides[this.activeIndex];
+          var latitude = activeSlide.dataset.latitude;
+          var longitude = activeSlide.dataset.longitude;
+          window.beerMap.flyTo({center: [parseFloat(longitude),
+          parseFloat(latitude)],
+          zoom: 14,
+          offset: [0, -100],
+          speed: 0.8});
+        });
+      }
+      initSlider();
     </script>
 
   </body>
