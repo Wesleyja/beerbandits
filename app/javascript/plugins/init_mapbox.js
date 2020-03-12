@@ -25,7 +25,7 @@ const initMapbox = () => {
     const map = new mapboxgl.Map({
       container: 'map',
       center: center,
-      style: 'mapbox://styles/mapbox/streets-v10',
+      style: 'mapbox://styles/wesv/ck7nalueb0x711iqmjjnpng22',
       zoom: 15
     });
     window.beerMap = map;

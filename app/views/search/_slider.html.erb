@@ -1,43 +1,37 @@
 <div class="swiper-container">
-
   <div class="swiper-wrapper">
+  <% @final_results.first(10).each do |x| %>
+    <div class="swiper-slide" data-latitude="<%= x.first.inventory.store.latitude %>" data-longitude="<%= x.first.inventory.store.longitude%>">
+      <div class="product-card card">
+        <button
+        type="button"
+        class="js-drink-carousel-item"
+        data-toggle="modal"
+        data-target="#exampleModalCenter"
+        data-drink-name="<%= x.first.product.drink.name %>"
+        data-drink-store="<%= x.first.inventory.store.name %>"
+        data-drink-price="<% new_price = "$" + sprintf('%.2f',(x.first.inventory.price_cents.to_f/100.00))%><%= new_price %>"
+        data-drink-abv="<%= x.first.product.drink.abv %>% |"
+        data-drink-standards="<%= (x.first.product.size * x.first.product.drink.standard_drink).round(2) %> standards | $<%= sprintf('%.2f',((x.first.inventory.price_cents.to_f/100).to_f / ((x.first.product.size) * (x.first.product.drink.standard_drink)))) %> per standard"
+        data-drink-distance="<% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %><%= distance %>m"
+        data-drink-distance-time="<% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %>approx <%= (distance / (500 / 6)) %> mins"
+        data-drink-maps="https://www.google.com/maps/dir/<%= @current_location.join(",") %>/<%= x.first.inventory.store.latitude %>,<%= x.first.inventory.store.longitude %>">
 
-    <% @final_results.first(10).each do |x| %>
-      <div class="swiper-slide" data-latitude="<%= x.first.inventory.store.latitude %>" data-longitude="<%= x.first.inventory.store.longitude%>">
-        <div class="product-card card">
-          <button
-          type="button"
-          class="js-drink-carousel-item"
-          data-toggle="modal"
-          data-target="#exampleModalCenter"
-          data-drink-name="<%= x.first.product.drink.name %>"
-          data-drink-store="<%= x.first.inventory.store.name %>"
-          data-drink-price="$<%= x.first.inventory.price_cents.to_f/100 %>"
-          data-drink-abv="<%= x.first.product.drink.abv %>%"
-          data-drink-standards="<%= (x.first.product.size * x.first.product.drink.standard_drink).round(2) %> standards | $<%= ((x.first.inventory.price_cents.to_f/100).to_f / ((x.first.product.size) * (x.first.product.drink.standard_drink))).round(2) %> per Standard"
-          data-drink-distance="<% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %><%= distance %>m"
-          data-drink-distance-time="<% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %>Approx <%= (distance / (500 / 6)) %> minutes walking"
-          data-drink-maps="https://www.google.com/maps/dir/<%= @current_location.join(",") %>/<%= x.first.inventory.store.latitude %>,<%= x.first.inventory.store.longitude %>">
-
-          <div class="product-card-price">
-            <p class="product-card-price-text">
-              <% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %>
-              $<%= x.first.inventory.price_cents.to_f/100 %>
-            </p>
-          </div>
-          <div class="product-card-details">
-            <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
-            <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
-            <p class="product-card-price">$<%= x.first.inventory.price_cents.to_f/100 %></p>
-            <p class="product-card-price"><%= x.first.product.drink.abv %>%  |   <%= (x.first.product.drink.standard_drink).round(2) %> Standards</p>
-            <%= link_to "Take me there", "https://www.google.com/maps/dir/#{@current_location.join(",")}/#{x.first.inventory.store.latitude},#{x.first.inventory.store.longitude}"%>
-          </div>
+        <div class="product-card-price">
+          <p class="product-card-price-text">
+            <% distance = ((x.last - (x.first.inventory.price_cents / 100)) * 118).round %>
+            <% new_price = "$" + sprintf('%.2f',(x.first.inventory.price_cents.to_f/100.00))%><%= new_price %>
+          </p>
         </div>
+        <div class="product-card-details">
+          <h2 class="product-card-brand"><%= x.first.product.drink.name %></h2>
+          <h2 class="product-card-brand"><%= x.first.product.size %> pack</h2>
+          <h3 class="product-card-name"><%= x.first.inventory.store.name %></h3>
       </div>
     <% end %>
 
     </button>
 
   </div>
-
+ </div>
 </div>

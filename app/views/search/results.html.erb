@@ -13,6 +13,7 @@
       Size
     </button>
   <div class="dropdown-menu dropdown-menu-center dropdown-menu-labels">
+
     <div class="dropdown-menu-content">
       <% if the_params[:size] == "pack" %>
       <%= f.collection_radio_buttons :sizetype, [['6 Pack', '6'], ['4 Pack', '4'], ['Both', '4 6']], :last, :first %>
@@ -67,27 +68,30 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content product-card-modal card">
       <div class="modal-body">
-        <!-- <img src="https://images.unsplash.com/photo-1558642891-54be180ea339?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80" class="product-card-image-modal card-img-top" alt="beer-image"/> -->
-          <h2 class="product-card-brand-modal js-drink-store"></h2>
-          <h3 class="product-card-name-modal js-drink-name"></h3>
-          <p class="product-card-price-modal js-drink-price"></p>
-          <p class="js-drink-standards"></p>
-          <p class="js-drink-abv"></p>
-          <div class="product-card-footer-modal">
-            <div class="product-card-distance-modal js-drink-distance"></div>
-            <div class="product-card-distance-modal js-drink-distance-time"></div>
-          </div>
-          <a class="js-drink-maps" href="">Take me there</a>
+        <h2 class="product-card-name-modal js-drink-name text-center"></h2>
+        <div class="product-card-price my-3">
+          <p class="product-card-price-text js-drink-price">
+           
+          </p>
         </div>
-
+        <div class="product-card-standards-modal">
+          <span class="js-drink-abv"></span>
+          <span class="js-drink-standards"></span>
+        </div>
+      </div>
+      <div class="product-card-footer-modal">
+        <h3 class="product-card-brand-modal js-drink-store"></h3>
+        <a class="js-drink-maps product-card-map-btn" href="">
+          <span>
+            <span class="fas fa-walking card-walking-icon"></span>
+            <span class="js-drink-distance"></span>
+            (<span class="js-drink-distance-time"></span>)
+          </span>
+          <span class="fa fa-angle-right"></span>
+        </a>        
+      </div>
       </div>
     </div>
   </div>
 </div>
 
-
-
-<!-- <p>Brand < x.first.product.drink.name %></p>
-<p>Store < x.first.inventory.store.name %></p>
-<p>Price < x.first.inventory.price_cents.to_f/100 %></p>
-<p>ABV < x.first.product.drink.abv %></p> -->
