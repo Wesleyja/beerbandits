@@ -12,6 +12,8 @@
   margin-left: -2px;
   font-size: 18px;
   font-weight: bold;
+  background-color: transparent;
+  border: none;
 }
 
 .card-favourite {
@@ -40,6 +42,10 @@
   right: 19px;
   position: absolute;
   bottom: 11px;
+  &:hover {
+    color: white;
+    background: #F0C032;
+  }
 }
 
 .unfavourite-icon {
@@ -50,6 +56,10 @@
   right: 19px;
   position: absolute;
   bottom: 43px;
+  &:hover {
+    color: white;
+    background: grey;
+  }
 }
 
 .favourites-heading {
@@ -74,4 +84,8 @@
   position: absolute;
   bottom: 43px;
   right:60px;
+  &:hover {
+    color: white;
+    background: grey;
+  }
 }

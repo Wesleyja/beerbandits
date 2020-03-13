@@ -26,8 +26,7 @@
           <a class="dropdown-item">
             <%= f.input :name, label: false %>
           </a>
-          <a class="dropdown-item"><%= f.button :submit, value: 'Save', data: { disable_with: false } %></a>
-          <div class="dropdown-divider"></div>
+          <a class="dropdown-item"><%= f.button :submit, value: 'Save', data: { disable_with: false }, class: 'btn btn-primary' %></a>
           <% end %>
         </div>
       </div>
@@ -38,7 +37,7 @@
           <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
           <%= f.input :location, :as => :hidden, :input_html => { :value => search.source_data['location'] } %>
           <%= f.input :size, :as => :hidden, :input_html => { :value => search.source_data['size'] } %>
-          <%= f.button :submit, value: 'Go again!', class: "btn btn-primary"  %>
+          <%= f.button :submit, value: 'Go again!', class: "btn btn-primary", data: { disable_with: false }  %>
           <%= link_to '', favourites_toggle_favourite_path(search), method: :patch, remote: true, class: "fas fa-bookmark favourite-icon"  %>
         <% end %>
       </div>
@@ -55,7 +54,7 @@
           <p class="favourites-location"><%= "#{search.source_data['location']}" %></p>
         </div>
           <%= simple_form_for :favourited, url: results_path, method: :get do |f| %>
-            <%= f.button :submit, value: 'Go again!', class: "btn btn-primary"  %>
+            <%= f.button :submit, value: 'Go again!', class: "btn btn-primary", data: { disable_with: false }  %>
             <%= link_to '', favourites_delete_path(search), method: :delete, remote: true, class: "fas fa-trash trash-icon"  %>
             <%= link_to '', favourites_toggle_favourite_path(search), method: :patch, remote: true, class: "fas fa-bookmark unfavourite-icon"  %>
             <%= f.input :category, :as => :hidden, :input_html => { :value => search.source_data['category'] } %>
